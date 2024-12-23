@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skbwtrainer/components/auth_text_field.dart';
 import 'package:skbwtrainer/components/primary_button.dart';
+import 'package:skbwtrainer/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:skbwtrainer/themes/app_font.dart';
 
 class LoginPage extends StatefulWidget {
@@ -15,7 +17,24 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
   bool isObscure = true;
 
-  void login() async {}
+  void login() async {
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    final authCubit = context.read<AuthCubit>();
+    if (email.isNotEmpty &&
+        password.isNotEmpty) {
+      // Authentication
+      await authCubit.login(email, password);
+    }
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,12 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                             SizedBox(height: sHeight / 80),
                             PrimaryButton(
                               text: 'Login',
-                              onTap: () {
-                                if (emailController.text.isNotEmpty &&
-                                    passwordController.text.isNotEmpty) {
-                                  login();
-                                }
-                              },
+                              onTap: login,
                               color: theme.primary,
                               textColor: theme.onPrimary,
                             ),

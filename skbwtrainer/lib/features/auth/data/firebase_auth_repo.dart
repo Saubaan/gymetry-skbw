@@ -6,8 +6,7 @@ class FirebaseAuthRepo implements AuthRepo {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   @override
-  Future<AppUser?> loginWithEmailAndPassword(
-      String email, String password) async {
+  Future<AppUser?> loginWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential userCredential =
           await firebaseAuth.signInWithEmailAndPassword(
