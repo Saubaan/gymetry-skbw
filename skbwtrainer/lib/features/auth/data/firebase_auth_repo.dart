@@ -21,8 +21,8 @@ class FirebaseAuthRepo implements AuthRepo {
       );
 
       return user;
-    } catch (e) {
-      throw Exception('Login Failed: $e');
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.code);
     }
   }
 
