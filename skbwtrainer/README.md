@@ -1,4 +1,4 @@
-# skbwtrainer
+# Gymetry S.K.B.W. Trainer
 
 ### Gymetry trainer version for S. K. Body Works Gym.
 #### Features:
