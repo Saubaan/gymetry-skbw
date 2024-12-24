@@ -36,7 +36,11 @@ class AuthCubit extends Cubit<AuthState> {
         emit(Unauthenticated());
       }
     } on Exception catch (e) {
-      String message = e.toString().split(' ')[1].trim();
+      String message;
+      try { message = e.toString().split(' ')[1].trim();
+      } catch (e) {
+        message = e.toString();
+      }
       emit(AuthError(message));
       emit(Unauthenticated());
     }
