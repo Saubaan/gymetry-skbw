@@ -1,16 +1,9 @@
 # skbwtrainer
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Gymetry trainer version for S. K. Body Works Gym.
+#### Features:
+- [x] User can login to the account.
+- [x] User can register members to his gym.
+- [x] User can view the list of members.
+- [x] User can track the attendance of the gym members.
+- [x] User can track the subscription of the gym members.
