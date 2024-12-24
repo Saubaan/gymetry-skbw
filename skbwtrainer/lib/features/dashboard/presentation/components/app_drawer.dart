@@ -34,7 +34,7 @@ class AppDrawer extends StatelessWidget {
                 'Gymetry SKBW',
                 style: TextStyle(
                   fontFamily: AppFont.primaryFont,
-                  fontSize: 24,
+                  fontSize: sWidth / 25,
                   color: theme.onSurface,
                 ),
               ),
@@ -45,9 +45,8 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.person, color: theme.onSurface),
               title: Text(
                 'Profile',
-                style: TextStyle(fontFamily: AppFont.primaryFont),
+                style: TextStyle(fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
               ),
-              splashColor: theme.primary.withAlpha(50),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(context, createAnimatedRoute(ProfilePage(), 1));
@@ -59,7 +58,7 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.settings, color: theme.onSurface),
               title: Text(
                 'Settings',
-                style: TextStyle(fontFamily: AppFont.primaryFont),
+                style: TextStyle(fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -71,7 +70,7 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.logout, color: theme.onSurface),
               title: Text(
                 'Logout',
-                style: TextStyle(fontFamily: AppFont.primaryFont),
+                style: TextStyle(fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
               ),
               onTap: logout,
             ),
@@ -87,19 +86,7 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.help, color: theme.onSurface),
               title: Text(
                 'Help',
-                style: TextStyle(fontFamily: AppFont.primaryFont),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-
-            /// Contact Tile
-            ListTile(
-              leading: Icon(Icons.mail, color: theme.onSurface),
-              title: Text(
-                'Contact Us',
-                style: TextStyle(fontFamily: AppFont.primaryFont),
+                style: TextStyle(fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -109,14 +96,35 @@ class AppDrawer extends StatelessWidget {
             /// Developer Name Text
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Developed by Bitvert',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: theme.onSurface,
-                  fontSize: sWidth / 35,
-                  fontFamily: AppFont.primaryFont,
-                ),
+              child: Row(
+                children: [
+                  Text(
+                    'Developed by Bitvert, ',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: theme.onSurface.withAlpha(150),
+                      fontSize: sWidth / 35,
+                      fontFamily: AppFont.primaryFont,
+                    ),
+                  ),
+
+                  SizedBox(width: 10),
+
+                  GestureDetector(
+                    child: Text(
+                      'About Us',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: theme.onSurface,
+                        fontSize: sWidth / 35,
+                        fontFamily: AppFont.primaryFont,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
               ),
             ),
           ],
