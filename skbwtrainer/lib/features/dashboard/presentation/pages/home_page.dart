@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skbwtrainer/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:skbwtrainer/features/dashboard/presentation/components/app_drawer.dart';
 import 'package:skbwtrainer/themes/app_font.dart';
 
