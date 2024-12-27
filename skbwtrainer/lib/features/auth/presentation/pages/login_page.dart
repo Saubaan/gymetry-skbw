@@ -63,8 +63,11 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(),
+
+                /// Logo Container
                 Column(
                   children: [
+                    /// Logo
                     ClipRRect(
                       borderRadius: BorderRadius.circular(sWidth / 40),
                       child: Image.asset(
@@ -72,43 +75,53 @@ class _LoginPageState extends State<LoginPage> {
                         height: sWidth / 6,
                       ),
                     ),
+
+                    /// Gymetry Trainer Text
                     Text(
                       'Gymetry Trainer',
                       style: TextStyle(
                         color: theme.onSurface,
-                        fontSize: sWidth / 15,
+                        fontSize: sWidth / 19,
                         fontFamily: AppFont.logoFont,
                       ),
                     ),
                   ],
                 ),
+
+                /// Login Form Container
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Login Text
+                    /// Login Text
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+
+                        /// Login
                         Text(
                           'Login',
                           style: TextStyle(
                             color: theme.onSurface,
-                            fontSize: sWidth / 10,
+                            fontSize: sWidth / 12,
                             fontFamily: AppFont.primaryFont,
                           ),
                         ),
+
+                        /// to your account.
                         Text(
                           'to your account.',
                           style: TextStyle(
                             color: theme.onSurface.withAlpha(150),
-                            fontSize: sWidth / 15,
+                            fontSize: sWidth / 18,
                             fontFamily: AppFont.primaryFont,
                           ),
                         ),
                       ],
                     ),
+
                     SizedBox(height: sHeight / 80),
-                    // Login Form
+
+                    /// Login Form
                     Container(
                       padding: EdgeInsets.all(sWidth / 40),
                       decoration: BoxDecoration(
@@ -116,14 +129,15 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(sWidth / 20)),
                       child: Column(
                         children: [
-                          // Icon Image
-                          // E-mail Field
+                          /// E-mail Field
                           AuthTextField(
                             hintText: 'E-mail',
                             controller: emailController,
                           ),
+
                           SizedBox(height: sHeight / 80),
-                          // Password Field
+
+                          /// Password Field
                           AuthTextField(
                             hintText: 'Password',
                             controller: passwordController,
@@ -136,7 +150,10 @@ class _LoginPageState extends State<LoginPage> {
                               );
                             },
                           ),
+
                           SizedBox(height: sHeight / 80),
+
+                          /// Login Button
                           PrimaryButton(
                             text: 'Login',
                             onTap: login,
@@ -148,16 +165,19 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
+
                 const SizedBox(
                   height: 10,
                 ),
+
+                /// Gym Name Text
                 Column(
                   children: [
                     Text(
                       'made for',
                       style: TextStyle(
                         color: theme.onSurface.withAlpha(100),
-                        fontSize: sWidth / 24,
+                        fontSize: sWidth / 30,
                         fontFamily: AppFont.primaryFont,
                       ),
                     ),
@@ -165,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                       'S. K. Body Works',
                       style: TextStyle(
                         color: theme.onSurface,
-                        fontSize: sWidth / 18,
+                        fontSize: sWidth / 24,
                         fontFamily: AppFont.primaryFont,
                       ),
                     ),

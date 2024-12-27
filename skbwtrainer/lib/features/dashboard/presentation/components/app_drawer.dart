@@ -31,25 +31,25 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
               title: Text(
-                'Gymetry SKBW',
+                'SK Body Works',
                 style: TextStyle(
-                  fontFamily: AppFont.primaryFont,
+                  fontFamily: AppFont.logoFont,
                   fontSize: sWidth / 25,
                   color: theme.onSurface,
                 ),
               ),
             ),
 
-            /// Profile Tile
-            ListTile(
-              leading: Icon(Icons.person, color: theme.onSurface),
+            /// Gym Profile Tile
+            ListTile
+              (
+              leading: Icon(Icons.account_circle, color: theme.onSurface),
               title: Text(
-                'Profile',
+                'Gym Profile',
                 style: TextStyle(fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
               ),
               onTap: () {
-                Navigator.pop(context);
-                Navigator.push(context, createAnimatedRoute(ProfilePage(), 1));
+                pushPage(context, ProfilePage(), 1);
               },
             ),
 

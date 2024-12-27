@@ -25,7 +25,7 @@ class PrimaryButton extends StatelessWidget {
             Text(
               text,
               style: TextStyle(
-                fontSize: fontSize ?? sWidth / 18,
+                fontSize: fontSize ?? sWidth / 20,
                 color:
                 textColor ?? Theme.of(context).colorScheme.onPrimary,
                 fontFamily: 'Retroica',
