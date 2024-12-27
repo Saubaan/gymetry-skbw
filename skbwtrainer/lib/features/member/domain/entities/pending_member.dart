@@ -4,7 +4,7 @@ class PendingMember extends Member {
   final String password;
 
   PendingMember({
-    required super.id,
+    required super.uid,
     required super.name,
     required super.email,
     required super.phone,
@@ -17,7 +17,7 @@ class PendingMember extends Member {
   @override
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
+      'uid': uid,
       'password': password,
       'name': name,
       'email': email,
@@ -30,7 +30,7 @@ class PendingMember extends Member {
 
   Member toMember() {
     return Member(
-      id: id,
+      uid: uid,
       name: name,
       email: email,
       phone: phone,
@@ -42,7 +42,7 @@ class PendingMember extends Member {
 
   factory PendingMember.fromJson(Map<String, dynamic> json) {
     return PendingMember(
-      id: json['id'],
+      uid: json['uid'],
       password: json['password'],
       name: json['name'],
       email: json['email'],

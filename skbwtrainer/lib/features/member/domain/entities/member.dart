@@ -1,6 +1,7 @@
 class Member {
-  final String id;
+  final String uid;
   final String name;
+  final String role = 'member';
   final String email;
   final String phone;
   final DateTime expiryDate;
@@ -8,7 +9,7 @@ class Member {
   final DateTime pauseStartDate;
 
   Member({
-    required this.id,
+    required this.uid,
     required this.name,
     required this.email,
     required this.phone,
@@ -19,8 +20,9 @@ class Member {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
+      'uid': uid,
       'name': name,
+      'role': role,
       'email': email,
       'phone': phone,
       'expiryDate': expiryDate.toIso8601String(),
@@ -31,7 +33,7 @@ class Member {
   
   factory Member.fromJson(Map<String, dynamic> json) {
     return Member(
-      id: json['id'],
+      uid: json['uid'],
       name: json['name'],
       email: json['email'],
       phone: json['phone'],
