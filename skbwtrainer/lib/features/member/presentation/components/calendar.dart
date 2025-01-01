@@ -46,12 +46,14 @@ class AttendanceCalendar extends StatelessWidget {
   }
 
   DateTime? getAttendanceTimeForDay(DateTime day) {
-    return presentDates.firstWhere(
-        (presentDate) =>
-            presentDate.year == day.year &&
-            presentDate.month == day.month &&
-            presentDate.day == day.day,
-        orElse: () => null as DateTime);
+    for (DateTime presentDate in presentDates) {
+      if (presentDate.year == day.year &&
+          presentDate.month == day.month &&
+          presentDate.day == day.day) {
+        return presentDate;
+      }
+    }
+    return null;
   }
 
   Widget buildDayMarker(DateTime day, Color color,
