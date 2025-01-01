@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skbwtrainer/features/member/data/firebase_member_repo.dart';
 import 'package:skbwtrainer/features/member/domain/repository/member_repo.dart';
-import 'package:skbwtrainer/features/member/presentation/components/calendar.dart';
+import 'package:skbwtrainer/features/member/presentation/components/attendance_calendar.dart';
 import 'package:skbwtrainer/features/member/presentation/cubits/attendance_cubit.dart';
 import 'package:skbwtrainer/features/member/presentation/cubits/attendance_states.dart';
 
