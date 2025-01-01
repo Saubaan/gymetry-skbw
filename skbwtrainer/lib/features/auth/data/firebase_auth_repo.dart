@@ -14,6 +14,8 @@ class FirebaseAuthRepo implements AuthRepo {
         password: password,
       );
 
+
+
       AppUser user = AppUser(
         uid: userCredential.user!.uid,
         email: email,
