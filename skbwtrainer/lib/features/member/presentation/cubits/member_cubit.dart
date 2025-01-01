@@ -16,7 +16,6 @@ class MemberCubit extends Cubit<MemberState> {
       emit(MembersLoaded(members));
     } on Exception catch (e) {
       emit(MemberError(e.toString()));
-      emit(MemberInitial());
     }
   }
 
@@ -27,7 +26,6 @@ class MemberCubit extends Cubit<MemberState> {
       emit(MemberLoaded(member));
     } on Exception catch (e) {
       emit(MemberError(e.toString()));
-      emit(MemberInitial());
     }
   }
 
@@ -38,7 +36,6 @@ class MemberCubit extends Cubit<MemberState> {
       emit(PendingMembersLoaded(members));
     } on Exception catch (e) {
       emit(MemberError(e.toString()));
-      emit(MemberInitial());
     }
   }
 
@@ -49,7 +46,6 @@ class MemberCubit extends Cubit<MemberState> {
       emit(MemberInitial());
     } on Exception catch (e) {
       emit(MemberError(e.toString()));
-      emit(MemberInitial());
     }
   }
 
@@ -60,7 +56,6 @@ class MemberCubit extends Cubit<MemberState> {
       emit(MemberInitial());
     } on Exception catch (e) {
       emit(MemberError(e.toString()));
-      emit(MemberInitial());
     }
   }
 
@@ -71,7 +66,6 @@ class MemberCubit extends Cubit<MemberState> {
       emit(MemberInitial());
     } on Exception catch (e) {
       emit(MemberError(e.toString()));
-      emit(MemberInitial());
     }
   }
 }
