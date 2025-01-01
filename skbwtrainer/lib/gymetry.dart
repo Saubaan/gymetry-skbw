@@ -6,6 +6,7 @@ import 'package:skbwtrainer/features/auth/presentation/cubits/auth_states.dart';
 import 'package:skbwtrainer/features/dashboard/presentation/pages/home_page.dart';
 import 'package:skbwtrainer/themes/dark_mode.dart';
 import 'package:skbwtrainer/themes/light_mode.dart';
+import 'package:skbwtrainer/utils/app_snack_bar.dart';
 import 'package:skbwtrainer/utils/error_message.dart';
 import 'features/auth/presentation/cubits/auth_cubit.dart';
 import 'features/auth/presentation/pages/login_page.dart';
@@ -47,11 +48,7 @@ class Gymetry extends StatelessWidget {
             },
             listener: (context, state) {
               if (state is AuthError) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(getFirebaseAuthErrorMessage(state.message)),
-                  ),
-                );
+                AppSnackBar.showError(getFirebaseAuthErrorMessage(state.message), context);
               }
             }),
       ),
