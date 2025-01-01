@@ -116,6 +116,18 @@ class FireBaseMemberRepo implements MemberRepo {
   }
 
   @override
+  Future<void> updateMemberById(Member member) async {
+    try {
+      // Update member document in the members collection
+      await membersCollection.doc(member.uid).update(member.toJson());
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.code);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
   Future<PendingMember> getPendingMemberById(String pendingMemberId) async {
     try {
       // Get pending member document from the pendingMembers collection
