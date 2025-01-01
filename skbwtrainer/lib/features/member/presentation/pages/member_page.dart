@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skbwtrainer/features/member/presentation/cubits/member_cubit.dart';
 
 class MemberPage extends StatelessWidget {
+  const MemberPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +12,6 @@ class MemberPage extends StatelessWidget {
       body: Center(
         child: InkWell(
           onTap: () {
-            final memberCubit = context.read<MemberCubit>();
           },
           child: Text('Member Page'),
         ),
