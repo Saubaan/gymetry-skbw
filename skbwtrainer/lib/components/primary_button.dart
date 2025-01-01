@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
-  const PrimaryButton({super.key, required this.text, this.color = Colors.white, this.textColor, this.onTap, this.fontSize});
+  const PrimaryButton(
+      {super.key,
+      required this.text,
+      this.color = Colors.white,
+      this.textColor,
+      this.onTap,
+      this.fontSize});
   final String text;
   final void Function()? onTap;
   final double? fontSize;
@@ -11,28 +17,33 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sWidth = MediaQuery.of(context).size.width;
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.all(sWidth / 40),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(sWidth / 40),
-          color: color,
+    return ElevatedButton(
+      onPressed: onTap,
+      style: ButtonStyle(
+        padding: WidgetStatePropertyAll(
+          EdgeInsets.all(sWidth / 40),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              text,
-              style: TextStyle(
-                fontSize: fontSize ?? sWidth / 20,
-                color:
-                textColor ?? Theme.of(context).colorScheme.onPrimary,
-                fontFamily: 'Retroica',
-              ),
+        backgroundColor: WidgetStatePropertyAll(color),
+        overlayColor: WidgetStatePropertyAll(Colors.white.withAlpha(50)),
+        elevation: WidgetStatePropertyAll(0),
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(sWidth / 40),
+          ),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: fontSize ?? sWidth / 20,
+              color: textColor ?? Theme.of(context).colorScheme.onPrimary,
+              fontFamily: 'Retroica',
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
