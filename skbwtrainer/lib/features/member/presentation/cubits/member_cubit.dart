@@ -13,6 +13,7 @@ class MemberCubit extends Cubit<MemberState> {
     emit(MemberLoading());
     try {
       final members = await memberRepo.getMembers();
+      print('members: $members');
       emit(MembersLoaded(members));
     } on Exception catch (e) {
       emit(MemberError(e.toString()));
