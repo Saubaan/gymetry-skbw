@@ -24,7 +24,7 @@ class PrimaryButton extends StatelessWidget {
           EdgeInsets.all(sWidth / 40),
         ),
         backgroundColor: WidgetStatePropertyAll(color),
-        overlayColor: WidgetStatePropertyAll(Colors.white.withAlpha(50)),
+        overlayColor: WidgetStatePropertyAll(textColor?.withAlpha(50) ?? Theme.of(context).colorScheme.onPrimary.withAlpha(50)),
         elevation: WidgetStatePropertyAll(0),
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
@@ -38,7 +38,7 @@ class PrimaryButton extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
-              fontSize: fontSize ?? sWidth / 20,
+              fontSize: fontSize ?? sWidth / 24,
               color: textColor ?? Theme.of(context).colorScheme.onPrimary,
               fontFamily: 'Retroica',
             ),
