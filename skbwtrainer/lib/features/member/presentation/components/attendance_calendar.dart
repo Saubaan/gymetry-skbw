@@ -3,14 +3,14 @@ import 'package:table_calendar/table_calendar.dart';
 
 class AttendanceCalendar extends StatelessWidget {
   final DateTime startDate;
-  final DateTime endDate;
+  final DateTime expiryDate;
   final List<DateTime> presentDates;
   final DateTime focusedDay;
 
   const AttendanceCalendar({
     super.key,
     required this.startDate,
-    required this.endDate,
+    required this.expiryDate,
     required this.presentDates,
     required this.focusedDay,
   });
@@ -90,7 +90,7 @@ class AttendanceCalendar extends StatelessWidget {
       ),
       focusedDay: focusedDay,
       firstDay: startDate,
-      lastDay: endDate,
+      lastDay: expiryDate.isAfter(DateTime.now()) ? expiryDate : DateTime.now(),
       headerStyle: const HeaderStyle(
         titleTextStyle: TextStyle(fontFamily: "Brigade", fontSize: 20),
         formatButtonVisible: false,
@@ -106,7 +106,13 @@ class AttendanceCalendar extends StatelessWidget {
                   child: buildDayMarker(day, Colors.green,
                       textColor: Colors.white),
                 )
-              : buildDayMarker(day, Colors.grey, textColor: Colors.white);
+              : expiryDate.isAfter(day)
+                  ? buildDayMarker(day, Colors.grey, textColor: Colors.white)
+                  : buildDayMarker(
+                      day,
+                      Colors.transparent,
+                      textColor: Theme.of(context).colorScheme.onSurface,
+                    );
         },
         todayBuilder: (context, day, focusedDay) {
           return isPresent(day)
