@@ -40,7 +40,7 @@ class CalendarBloc extends StatelessWidget {
             final presentDates = state.attendance.map((e) => e.date).toList();
             return AttendanceCalendar(
                 startDate: startDate,
-                endDate: endDate,
+                expiryDate: endDate,
                 presentDates: presentDates,
                 focusedDay: focusedDay);
           } else {
