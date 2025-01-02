@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:skbwtrainer/features/member/data/firebase_member_repo.dart';
 import 'package:skbwtrainer/features/member/domain/repository/member_repo.dart';
 import 'package:skbwtrainer/features/member/presentation/components/attendance_calendar.dart';
 import 'package:skbwtrainer/features/member/presentation/cubits/attendance_cubit.dart';
 import 'package:skbwtrainer/features/member/presentation/cubits/attendance_states.dart';
 
-class CalendarBloc extends StatelessWidget {
+class AttendanceCalendarBloc extends StatelessWidget {
   final String id;
   final DateTime startDate;
   final DateTime endDate;
   final DateTime focusedDay;
   final MemberRepo memberRepo = FireBaseMemberRepo();
 
-  CalendarBloc(
+  AttendanceCalendarBloc(
       {super.key,
       required this.startDate,
       required this.endDate,
@@ -44,8 +45,8 @@ class CalendarBloc extends StatelessWidget {
                 presentDates: presentDates,
                 focusedDay: focusedDay);
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Center(
+              child: LoadingAnimationWidget.staggeredDotsWave(color: theme.primary, size: 50),
             );
           }
         }, listener: (context, state) {
