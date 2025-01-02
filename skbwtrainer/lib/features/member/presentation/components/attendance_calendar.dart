@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:skbwtrainer/themes/app_font.dart';
+import 'package:skbwtrainer/utils/calendar_functions.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class AttendanceCalendar extends StatelessWidget {
@@ -29,16 +31,34 @@ class AttendanceCalendar extends StatelessWidget {
       showDialog(
         context: context,
         builder: (context) {
+          final theme = Theme.of(context).colorScheme;
           return AlertDialog(
-            title: Text('Attendance for ${day.day}/${day.month}/${day.year}'),
-            content: Text(
-                'Attendance was marked at ${attendanceTime.hour}:${attendanceTime.minute}'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('OK'),
-              ),
-            ],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '${day.day} ${monthNameFromInt(day.month)} ${day.year}',
+                  style: const TextStyle(
+                    fontFamily: AppFont.primaryFont,
+                    fontSize: 18,
+                  ),
+                ),
+                Text(
+                  'Attendance was marked on',
+                  style: TextStyle(
+                      fontFamily: AppFont.primaryFont,
+                      color: theme.onSurface.withAlpha(100)),
+                ),
+                Text(
+                  time24to12(attendanceTime.hour, attendanceTime.minute),
+                  style:
+                      TextStyle(fontFamily: AppFont.primaryFont, fontSize: 20),
+                ),
+              ],
+            ),
           );
         },
       );
