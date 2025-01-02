@@ -22,6 +22,11 @@ class PendingMembersLoaded extends MemberState {
   PendingMembersLoaded(this.members);
 }
 
+class MemberSuccess extends MemberState {
+  final String message;
+  MemberSuccess(this.message);
+}
+
 class MemberError extends MemberState {
   final String message;
   MemberError(this.message);
