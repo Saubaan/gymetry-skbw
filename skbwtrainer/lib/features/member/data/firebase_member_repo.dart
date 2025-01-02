@@ -35,6 +35,7 @@ class FireBaseMemberRepo implements MemberRepo {
         expiryDate: pendingMember.expiryDate,
         isPaused: pendingMember.isPaused,
         pauseStartDate: pendingMember.pauseStartDate,
+        createdAt: DateTime.now(),
       );
 
       // Delete pending member document from the pendingMembers collection
@@ -42,7 +43,6 @@ class FireBaseMemberRepo implements MemberRepo {
 
       // Add member document to the members collection
       await membersCollection.doc(member.uid).set(member.toJson());
-
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
     } catch (e) {
@@ -94,6 +94,7 @@ class FireBaseMemberRepo implements MemberRepo {
     try {
       // Get all member documents from the members collection
       QuerySnapshot membersDocs = await membersCollection.get();
+
       return membersDocs.docs
           .map((doc) => Member.fromJson(doc.data() as Map<String, dynamic>))
           .toList();
@@ -104,9 +105,11 @@ class FireBaseMemberRepo implements MemberRepo {
 
   @override
   Future<List<Attendance>> getMemberAttendanceById(String memberId) async {
-    try{
+    try {
       // Get all attendance documents for the member from the attendance collection
-      QuerySnapshot attendanceDocs = await attendanceCollection.where('memberId', isEqualTo: memberId).get();
+      QuerySnapshot attendanceDocs = await attendanceCollection
+          .where('memberId', isEqualTo: memberId)
+          .get();
       return attendanceDocs.docs
           .map((doc) => Attendance.fromJson(doc.data() as Map<String, dynamic>))
           .toList();
