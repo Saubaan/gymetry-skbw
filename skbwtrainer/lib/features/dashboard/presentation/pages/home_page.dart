@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skbwtrainer/features/dashboard/presentation/components/app_drawer.dart';
-import 'package:skbwtrainer/features/member/presentation/pages/member_list_page.dart';
+import 'package:skbwtrainer/features/member/presentation/pages/member_list_bloc.dart';
 import 'package:skbwtrainer/themes/app_font.dart';
 import 'package:skbwtrainer/utils/navigation.dart';
 
@@ -41,7 +41,9 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(fontFamily: AppFont.primaryFont),
             ),
             ElevatedButton(
-              onPressed: () {pushPage(context, MemberListPage(), 1);},
+              onPressed: () {
+                pushPage(context, MemberListBloc(), 1);
+              },
               child: Text(
                 'Show members',
                 style: TextStyle(fontFamily: AppFont.primaryFont),
