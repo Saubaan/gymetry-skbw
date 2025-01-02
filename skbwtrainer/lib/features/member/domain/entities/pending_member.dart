@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'member.dart';
 
 class PendingMember extends Member {
@@ -12,6 +14,7 @@ class PendingMember extends Member {
     required super.isPaused,
     required super.pauseStartDate,
     required this.password,
+    required super.createdAt,
   });
 
   @override
@@ -22,9 +25,9 @@ class PendingMember extends Member {
       'name': name,
       'email': email,
       'phone': phone,
-      'expiryDate': expiryDate.toIso8601String(),
+      'expiryDate': Timestamp.fromDate(expiryDate),
       'isPaused': isPaused,
-      'pauseStartDate': pauseStartDate.toIso8601String(),
+      'pauseStartDate': Timestamp.fromDate(pauseStartDate),
     };
   }
 
@@ -37,6 +40,7 @@ class PendingMember extends Member {
       expiryDate: expiryDate,
       isPaused: isPaused,
       pauseStartDate: pauseStartDate,
+      createdAt: createdAt,
     );
   }
 
@@ -47,9 +51,10 @@ class PendingMember extends Member {
       name: json['name'],
       email: json['email'],
       phone: json['phone'],
-      expiryDate: DateTime.parse(json['expiryDate']),
+      expiryDate: json['expiryDate'].toDate(),
       isPaused: json['isPaused'],
-      pauseStartDate: DateTime.parse(json['pauseStartDate']),
+      pauseStartDate: json['pauseStartDate'].toDate(),
+      createdAt: json['createdAt'].toDate(),
     );
   }
 }

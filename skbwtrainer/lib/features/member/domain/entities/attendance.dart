@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Attendance {
   final String memberId;
   final DateTime date;
@@ -10,14 +12,14 @@ class Attendance {
   Map<String, dynamic> toJson() {
     return {
       'memberId': memberId,
-      'date': date.toIso8601String(),
+      'date': Timestamp.fromDate(date),
     };
   }
 
   factory Attendance.fromJson(Map<String, dynamic> json) {
     return Attendance(
       memberId: json['memberId'],
-      date: DateTime.parse(json['date']),
+      date: json['date'].toDate(),
     );
   }
 }
