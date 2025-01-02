@@ -41,14 +41,15 @@ class AppDrawer extends StatelessWidget {
             ),
 
             /// Gym Profile Tile
-            ListTile
-              (
+            ListTile(
               leading: Icon(Icons.account_circle, color: theme.onSurface),
               title: Text(
                 'Gym Profile',
-                style: TextStyle(fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
+                style: TextStyle(
+                    fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
               ),
               onTap: () {
+                Navigator.pop(context);
                 pushPage(context, ProfilePage(), 1);
               },
             ),
@@ -58,7 +59,8 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.settings, color: theme.onSurface),
               title: Text(
                 'Settings',
-                style: TextStyle(fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
+                style: TextStyle(
+                    fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -70,7 +72,8 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.logout, color: theme.onSurface),
               title: Text(
                 'Logout',
-                style: TextStyle(fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
+                style: TextStyle(
+                    fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
               ),
               onTap: logout,
             ),
@@ -86,7 +89,8 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.help, color: theme.onSurface),
               title: Text(
                 'Help',
-                style: TextStyle(fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
+                style: TextStyle(
+                    fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -107,9 +111,7 @@ class AppDrawer extends StatelessWidget {
                       fontFamily: AppFont.primaryFont,
                     ),
                   ),
-
                   SizedBox(width: 10),
-
                   GestureDetector(
                     child: Text(
                       'About Us',
