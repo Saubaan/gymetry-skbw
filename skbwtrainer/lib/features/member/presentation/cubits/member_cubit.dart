@@ -13,7 +13,6 @@ class MemberCubit extends Cubit<MemberState> {
     emit(MemberLoading());
     try {
       final members = await memberRepo.getMembers();
-      print('members: $members');
       emit(MembersLoaded(members));
     } on Exception catch (e) {
       emit(MemberError(e.toString()));
@@ -44,7 +43,6 @@ class MemberCubit extends Cubit<MemberState> {
     emit(MemberLoading());
     try {
       await memberRepo.approveAndCreateMember(pendingMember);
-      emit(MemberInitial());
     } on Exception catch (e) {
       emit(MemberError(e.toString()));
     }
@@ -54,17 +52,17 @@ class MemberCubit extends Cubit<MemberState> {
     emit(MemberLoading());
     try {
       await memberRepo.deleteMember(id);
-      emit(MemberInitial());
     } on Exception catch (e) {
       emit(MemberError(e.toString()));
     }
   }
 
-  Future<void> updateMember(Member member) async {
+  Future<void> updateMember(Member member, String message) async {
     emit(MemberLoading());
     try {
-      await memberRepo.updateMemberById(member);
-      emit(MemberInitial());
+      final updatedMember = await memberRepo.updateMemberById(member);
+      emit(MemberSuccess(message));
+      emit(MemberLoaded(updatedMember));
     } on Exception catch (e) {
       emit(MemberError(e.toString()));
     }
