@@ -22,7 +22,7 @@ abstract class MemberRepo {
   Future<PendingMember> getPendingMemberById(String pendingMemberId);
 
   // update member by id
-  Future<void> updateMemberById(Member member);
+  Future<Member> updateMemberById(Member member);
 
   // get member attendance by id
   Future<List<Attendance>> getMemberAttendanceById(String memberId);
