@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:skbwtrainer/features/auth/data/firebase_auth_repo.dart';
 import 'package:skbwtrainer/features/auth/domain/repositories/auth_repo.dart';
 import 'package:skbwtrainer/features/auth/presentation/cubits/auth_states.dart';
@@ -18,9 +19,16 @@ class Gymetry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider(
       create: (context) => AuthCubit(authRepo: authRepo)..checkAuth(),
       child: MaterialApp(
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
+            child: child!,
+          );
+        },
         title: 'Gymetry',
         debugShowCheckedModeBanner: false,
         theme: lightMode,
@@ -39,9 +47,9 @@ class Gymetry extends StatelessWidget {
 
               // Loading
               else {
-                return const Scaffold(
+                return Scaffold(
                   body: Center(
-                    child: CircularProgressIndicator(),
+                    child: LoadingAnimationWidget.staggeredDotsWave(color: Theme.of(context).colorScheme.primary, size: 50),
                   ),
                 );
               }
