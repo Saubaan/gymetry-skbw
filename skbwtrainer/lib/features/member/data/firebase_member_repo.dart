@@ -33,13 +33,13 @@ class FireBaseMemberRepo implements MemberRepo {
         name: pendingMember.name,
         phone: pendingMember.phone,
         expiryDate: pendingMember.expiryDate,
-        isPaused: pendingMember.isPaused,
-        pauseStartDate: pendingMember.pauseStartDate,
+        isPaused: false,
+        pauseStartDate: DateTime.now(),
         createdAt: DateTime.now(),
       );
 
       // Delete pending member document from the pendingMembers collection
-      await pendingMembersCollection.doc(pendingMember.uid).delete();
+      await pendingMembersCollection.doc(pendingMember.email).delete();
 
       // Add member document to the members collection
       await membersCollection.doc(member.uid).set(member.toJson());
@@ -119,10 +119,11 @@ class FireBaseMemberRepo implements MemberRepo {
   }
 
   @override
-  Future<void> updateMemberById(Member member) async {
+  Future<Member> updateMemberById(Member member) async {
     try {
       // Update member document in the members collection
       await membersCollection.doc(member.uid).update(member.toJson());
+      return member;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
     } catch (e) {
