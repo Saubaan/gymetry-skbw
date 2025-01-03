@@ -6,6 +6,7 @@ import 'package:skbwtrainer/features/member/domain/entities/member.dart';
 import 'package:skbwtrainer/features/member/presentation/components/attendance_calendar_bloc.dart';
 import 'package:skbwtrainer/themes/app_font.dart';
 import 'package:skbwtrainer/utils/app_snack_bar.dart';
+import 'package:skbwtrainer/utils/calendar_functions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../cubits/member_cubit.dart';
@@ -108,7 +109,7 @@ class _MemberPageState extends State<MemberPage> {
     );
   }
 
-  void showConfirmDeleteDialog(BuildContext context) {
+  void showConfirmDeleteDialog(BuildContext context, void Function()? onTap, {String title = 'Are you sure?', String content = 'This action cannot be undone'}) {
     final theme = Theme.of(context).colorScheme;
     showDialog(
       context: context,
@@ -118,7 +119,7 @@ class _MemberPageState extends State<MemberPage> {
             borderRadius: BorderRadius.circular(10),
           ),
           title: Text(
-            'Remove Member',
+            title,
             style: TextStyle(
               fontFamily: AppFont.primaryFont,
               fontSize: 16,
@@ -126,7 +127,7 @@ class _MemberPageState extends State<MemberPage> {
             ),
           ),
           content: Text(
-            'Are you sure you want to remove this member?',
+            content,
             style: TextStyle(
               fontFamily: AppFont.primaryFont,
               fontSize: 14,
@@ -145,7 +146,8 @@ class _MemberPageState extends State<MemberPage> {
               textColor: theme.onError,
               text: 'Ok',
               onTap: () {
-                // removeMember();
+                onTap!();
+                Navigator.pop(context);
               },
             ),
           ],
@@ -164,20 +166,26 @@ class _MemberPageState extends State<MemberPage> {
 
   void pauseSubscription() async {
     final DateTime now = DateTime.now();
-    final memberCubit = context.read<MemberCubit>();
+    if (widget.member.expiryDate.isBefore(now)) {
+      AppSnackBar.showError('Subscription has already expired', context);
+      return;
+    } else {
+      final memberCubit = context.read<MemberCubit>();
 
-    Member pausedMember = Member(
-      uid: widget.member.uid,
-      name: widget.member.name,
-      email: widget.member.email,
-      phone: widget.member.phone,
-      createdAt: widget.member.createdAt,
-      expiryDate: widget.member.expiryDate,
-      isPaused: true,
-      pauseStartDate: DateTime(now.year, now.month, now.day),
-    );
+      Member pausedMember = Member(
+        uid: widget.member.uid,
+        name: widget.member.name,
+        email: widget.member.email,
+        phone: widget.member.phone,
+        createdAt: widget.member.createdAt,
+        expiryDate: widget.member.expiryDate,
+        isPaused: true,
+        pauseStartDate: DateTime(now.year, now.month, now.day),
+      );
 
-    memberCubit.updateMember(pausedMember, 'Subscription paused successfully');
+      memberCubit.updateMember(
+          pausedMember, 'Subscription paused successfully');
+    }
   }
 
   void resumeSubscription() async {
@@ -221,6 +229,62 @@ class _MemberPageState extends State<MemberPage> {
       memberCubit.updateMember(
         extendedMember,
         'Subscription extended successfully',
+      );
+    } on Exception catch (e) {
+      AppSnackBar.showError('An error occurred: $e', context);
+    }
+  }
+
+  void reduceSubscription(String duration) async {
+    final memberCubit = context.read<MemberCubit>();
+    if (widget.member.expiryDate.isBefore(DateTime.now())) {
+      AppSnackBar.showError('Subscription has already expired', context);
+      return;
+    } else {
+      final DateTime newExpiryDate = widget.member.expiryDate
+          .subtract(Duration(days: int.parse(duration)));
+
+      Member reducedMember = Member(
+        uid: widget.member.uid,
+        name: widget.member.name,
+        email: widget.member.email,
+        phone: widget.member.phone,
+        createdAt: widget.member.createdAt,
+        expiryDate: newExpiryDate,
+        isPaused: widget.member.isPaused,
+        pauseStartDate: widget.member.pauseStartDate,
+      );
+
+      try {
+        memberCubit.updateMember(
+          reducedMember,
+          'Subscription reduced successfully',
+        );
+      } on Exception catch (e) {
+        AppSnackBar.showError('An error occurred: $e', context);
+      }
+    }
+  }
+
+  void revokeSubscription() async {
+    final memberCubit = context.read<MemberCubit>();
+    final DateTime newExpiryDate = DateTime.now();
+
+    Member revokedMember = Member(
+      uid: widget.member.uid,
+      name: widget.member.name,
+      email: widget.member.email,
+      phone: widget.member.phone,
+      createdAt: widget.member.createdAt,
+      expiryDate: newExpiryDate,
+      isPaused: widget.member.isPaused,
+      pauseStartDate: widget.member.pauseStartDate,
+    );
+
+    try {
+      memberCubit.updateMember(
+        revokedMember,
+        'Subscription revoked successfully',
       );
     } on Exception catch (e) {
       AppSnackBar.showError('An error occurred: $e', context);
@@ -271,15 +335,7 @@ class _MemberPageState extends State<MemberPage> {
                         ),
                       ),
                       Text(
-                        'Joined at: ${widget.member.createdAt.day}/${widget.member.createdAt.month}/${widget.member.createdAt.year}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: theme.onSecondary.withAlpha(150),
-                          fontFamily: AppFont.logoFont,
-                        ),
-                      ),
-                      Text(
-                        'Subscription expiry: ${widget.member.expiryDate.day}/${widget.member.expiryDate.month}/${widget.member.expiryDate.year}',
+                        'Joined on: ${widget.member.createdAt.day} ${monthNameFromInt(widget.member.createdAt.month)} ${widget.member.createdAt.year}',
                         style: TextStyle(
                           fontSize: 16,
                           color: theme.onSecondary.withAlpha(150),
@@ -306,33 +362,47 @@ class _MemberPageState extends State<MemberPage> {
             ),
 
             SizedBox(height: 10),
-
-            // a title card to take membership actions
+            // title card to display the status of the subscription
             TitleCard(
-              title: 'Membership Actions',
+              childrenAlign: CrossAxisAlignment.start,
               children: [
-                PrimaryButton(
-                  text: widget.member.isPaused
-                      ? 'Resume Subscription'
-                      : 'Pause Subscription',
-                  color: theme.onSecondary,
-                  textColor: theme.secondary,
-                  onTap: () {
-                    widget.member.isPaused
-                        ? resumeSubscription()
-                        : pauseSubscription();
-                  },
-                ),
-                PrimaryButton(
-                  text: 'Extend Subscription',
-                  color: theme.onSecondary,
-                  textColor: theme.secondary,
-                  onTap: () async {
-                    String? duration = await showSubscriptionDialog(context);
-                    if (duration != null) {
-                      extendSubscription(duration);
-                    }
-                  },
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.member.isPaused
+                                ? 'Subscription Paused'
+                                : widget.member.expiryDate
+                                        .isAfter(DateTime.now())
+                                    ? 'Subscription Active'
+                                    : 'Subscription Expired',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: AppFont.primaryFont,
+                              color: widget.member.expiryDate
+                                      .isAfter(DateTime.now())
+                                  ? theme.onSecondary
+                                  : theme.error,
+                            ),
+                          ),
+                          Text(
+                            widget.member.isPaused
+                                ? 'Paused on: ${widget.member.pauseStartDate.day} ${monthNameFromInt(widget.member.pauseStartDate.month)} ${widget.member.pauseStartDate.year}'
+                                : '${widget.member.expiryDate.isAfter(DateTime.now()) ? 'Expires on' : 'Expired on'} ${widget.member.expiryDate.day} ${monthNameFromInt(widget.member.expiryDate.month)} ${widget.member.expiryDate.year}',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: theme.onSecondary.withAlpha(150),
+                              fontFamily: AppFont.primaryFont,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -354,15 +424,73 @@ class _MemberPageState extends State<MemberPage> {
 
             SizedBox(height: 10),
 
+            // a title card to take membership actions
+            TitleCard(
+              title: 'Membership Actions',
+              children: [
+                PrimaryButton(
+                  text: widget.member.isPaused
+                      ? 'Resume Subscription'
+                      : 'Pause Subscription',
+                  color: theme.onSecondary,
+                  textColor: theme.secondary,
+                  onTap: () {
+                    widget.member.isPaused
+                        ? resumeSubscription()
+                        : pauseSubscription();
+                  },
+                ),
+                SizedBox(height: 5),
+                PrimaryButton(
+                  text: 'Extend Subscription',
+                  color: theme.onSecondary,
+                  textColor: theme.secondary,
+                  onTap: () async {
+                    String? duration = await showSubscriptionDialog(context);
+                    if (duration != null) {
+                      extendSubscription(duration);
+                    }
+                  },
+                ),
+                SizedBox(height: 5),
+                PrimaryButton(
+                  text: 'Reduce Subscription',
+                  color: theme.onSecondary,
+                  textColor: theme.secondary,
+                  onTap: () async {
+                    String? duration = await showSubscriptionDialog(context);
+                    if (duration != null) {
+                      reduceSubscription(duration);
+                    }
+                  },
+                ),
+                SizedBox(height: 5),
+                PrimaryButton(
+                  text: 'Revoke Subscription',
+                  color: theme.error,
+                  textColor: theme.onError,
+                  onTap: () {
+                    showConfirmDeleteDialog(
+                      context,
+                      revokeSubscription,
+                      title: 'Revoke Subscription',
+                      content: 'This action will end the'
+                          ' current subscription of the member.',
+                    );
+                  },
+                ),
+              ],
+            ),
+
+            SizedBox(height: 10),
+
             TitleCard(
               children: [
                 PrimaryButton(
                   text: 'Remove Member',
                   color: theme.error,
                   textColor: theme.onError,
-                  onTap: () {
-                    showConfirmDeleteDialog(context);
-                  },
+                  onTap: () {},
                 ),
               ],
             )
