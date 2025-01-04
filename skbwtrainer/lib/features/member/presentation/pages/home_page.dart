@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skbwtrainer/features/dashboard/presentation/components/app_drawer.dart';
+import 'package:skbwtrainer/features/member/presentation/components/app_drawer.dart';
 import 'package:skbwtrainer/features/member/presentation/pages/member_list_bloc.dart';
 import 'package:skbwtrainer/themes/app_font.dart';
 import 'package:skbwtrainer/utils/navigation.dart';
