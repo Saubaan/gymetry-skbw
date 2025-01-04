@@ -4,7 +4,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:skbwtrainer/features/auth/data/firebase_auth_repo.dart';
 import 'package:skbwtrainer/features/auth/domain/repositories/auth_repo.dart';
 import 'package:skbwtrainer/features/auth/presentation/cubits/auth_states.dart';
-import 'package:skbwtrainer/features/dashboard/presentation/pages/home_page.dart';
+import 'package:skbwtrainer/features/member/presentation/pages/home_page.dart';
 import 'package:skbwtrainer/themes/dark_mode.dart';
 import 'package:skbwtrainer/themes/light_mode.dart';
 import 'package:skbwtrainer/utils/app_snack_bar.dart';
