@@ -1,5 +1,4 @@
 import 'package:skbwtrainer/features/member/domain/entities/member.dart';
-import 'package:skbwtrainer/features/approval/domain/entities/pending_member.dart';
 
 abstract class MemberState {}
 

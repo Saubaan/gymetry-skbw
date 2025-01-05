@@ -16,7 +16,6 @@ class RequestNotification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sHeight = MediaQuery.of(context).size.height;
     final theme = Theme.of(context).colorScheme;
 
     return BlocProvider(
