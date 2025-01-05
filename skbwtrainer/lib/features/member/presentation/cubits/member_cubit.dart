@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skbwtrainer/features/member/domain/entities/member.dart';
-import 'package:skbwtrainer/features/member/domain/entities/pending_member.dart';
 import 'package:skbwtrainer/features/member/domain/repository/member_repo.dart';
 import 'member_states.dart';
 
@@ -24,25 +23,6 @@ class MemberCubit extends Cubit<MemberState> {
     try {
       final member = await memberRepo.getMemberById(id);
       emit(MemberLoaded(member));
-    } on Exception catch (e) {
-      emit(MemberError(e.toString()));
-    }
-  }
-
-  Future<void> getPendingMembers() async {
-    emit(MemberLoading());
-    try {
-      final members = await memberRepo.getPendingMembers();
-      emit(PendingMembersLoaded(members));
-    } on Exception catch (e) {
-      emit(MemberError(e.toString()));
-    }
-  }
-
-  Future<void> approveMember(PendingMember pendingMember) async {
-    emit(MemberLoading());
-    try {
-      await memberRepo.approveAndCreateMember(pendingMember);
     } on Exception catch (e) {
       emit(MemberError(e.toString()));
     }

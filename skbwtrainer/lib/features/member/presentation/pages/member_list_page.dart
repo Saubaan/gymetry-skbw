@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skbwtrainer/components/title_card.dart';
 import 'package:skbwtrainer/features/member/domain/entities/member.dart';
+import 'package:skbwtrainer/features/member/presentation/cubits/member_cubit.dart';
 import 'package:skbwtrainer/features/member/presentation/pages/member_bloc.dart';
 import 'package:skbwtrainer/themes/app_font.dart';
 import '../../../../utils/navigation.dart';
@@ -89,37 +91,51 @@ class _MemberListPageState extends State<MemberListPage> {
                 borderRadius: BorderRadius.circular(sWidth / 30),
               ),
               height: sHeight,
-              child: ListView.builder(
-                itemCount: filteredMembers.length,
-                itemBuilder: (context, index) {
-                  final member = filteredMembers[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: theme.surface,
-                        borderRadius: BorderRadius.circular(sWidth / 30),
-                      ),
-                      child: ListTile(
-                        title: Text(member.name,
-                            style: TextStyle(fontFamily: AppFont.primaryFont)),
-                        subtitle: Text(
-                          getExpiryText(member.expiryDate),
-                          style: TextStyle(
-                            color: isExpired(member.expiryDate)
-                                ? theme.error
-                                : theme.onSecondary.withAlpha(150),
-                            fontFamily: AppFont.logoFont,
-                          ),
+              child: widget.members.isEmpty
+                  ? Center(
+                      child: Text(
+                        'No members found',
+                        style: TextStyle(
+                          fontFamily: AppFont.primaryFont,
+                          color: theme.onSecondary,
                         ),
-                        onTap: () {
-                          pushPage(context, MemberBloc(id: member.uid), 1);
-                        },
                       ),
+                    )
+                  : ListView.builder(
+                      itemCount: filteredMembers.length,
+                      itemBuilder: (context, index) {
+                        final member = filteredMembers[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: theme.surface,
+                              borderRadius: BorderRadius.circular(sWidth / 30),
+                            ),
+                            child: ListTile(
+                              title: Text(member.name,
+                                  style: TextStyle(
+                                      fontFamily: AppFont.primaryFont)),
+                              subtitle: Text(
+                                getExpiryText(member.expiryDate),
+                                style: TextStyle(
+                                  color: isExpired(member.expiryDate)
+                                      ? theme.error
+                                      : theme.onSecondary.withAlpha(150),
+                                  fontFamily: AppFont.logoFont,
+                                ),
+                              ),
+                              onTap: () async {
+                                final memberCubit = context.read<MemberCubit>();
+                                await pushPage(
+                                    context, MemberBloc(id: member.uid), 1);
+                                memberCubit.getMembers();
+                              },
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
             ),
           ],
         ),

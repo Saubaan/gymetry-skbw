@@ -109,7 +109,9 @@ class _MemberPageState extends State<MemberPage> {
     );
   }
 
-  void showConfirmDeleteDialog(BuildContext context, void Function()? onTap, {String title = 'Are you sure?', String content = 'This action cannot be undone'}) {
+  void showConfirmDeleteDialog(BuildContext context, void Function()? onTap,
+      {String title = 'Are you sure?',
+      String content = 'This action cannot be undone'}) {
     final theme = Theme.of(context).colorScheme;
     showDialog(
       context: context,
@@ -490,7 +492,14 @@ class _MemberPageState extends State<MemberPage> {
                   text: 'Remove Member',
                   color: theme.error,
                   textColor: theme.onError,
-                  onTap: () {},
+                  onTap: () {
+                    showConfirmDeleteDialog(
+                      context,
+                      removeMember,
+                      title: 'Remove Member',
+                      content: 'Are you sure you want to remove this member?',
+                    );
+                  },
                 ),
               ],
             )

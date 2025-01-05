@@ -8,6 +8,7 @@ import 'package:skbwtrainer/features/member/presentation/cubits/member_states.da
 import 'package:skbwtrainer/themes/app_font.dart';
 import 'package:skbwtrainer/utils/app_snack_bar.dart';
 
+import '../../../approval/presentation/components/request_notification.dart';
 import 'member_list_page.dart';
 
 class MemberListBloc extends StatelessWidget {
@@ -29,6 +30,12 @@ class MemberListBloc extends StatelessWidget {
               fontSize: 18,
             ),
           ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: RequestNotification(),
+            ),
+          ],
         ),
         body: BlocConsumer<MemberCubit, MemberState>(
           builder: (context, state) {

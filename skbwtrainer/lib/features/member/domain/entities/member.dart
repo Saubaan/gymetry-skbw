@@ -30,6 +30,7 @@ class Member {
       'expiryDate': Timestamp.fromDate(expiryDate),
       'isPaused': isPaused,
       'pauseStartDate': Timestamp.fromDate(pauseStartDate),
+      'createdAt': Timestamp.fromDate(createdAt),
     };
   }
 

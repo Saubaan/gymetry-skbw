@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:skbwtrainer/features/approval/data/firebase_approval_repo.dart';
+import 'package:skbwtrainer/features/approval/domain/entities/pending_member.dart';
 import 'package:skbwtrainer/features/member/presentation/components/app_drawer.dart';
 import 'package:skbwtrainer/features/member/presentation/pages/member_list_bloc.dart';
 import 'package:skbwtrainer/themes/app_font.dart';
@@ -46,6 +48,24 @@ class _HomePageState extends State<HomePage> {
               },
               child: Text(
                 'Show members',
+                style: TextStyle(fontFamily: AppFont.primaryFont),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                PendingMember pendingMember = PendingMember(
+                  name: 'John Doe',
+                  email: 'john@doe.com',
+                  password: 'password',
+                  phone: '1234567890',
+                  createdAt: DateTime.now(),
+                  expiryDate: DateTime.now().add(Duration(days: 30)),
+                );
+                await FirebaseApprovalRepo()
+                    .createPendingMember(pendingMember);
+              },
+              child: Text(
+                'create member',
                 style: TextStyle(fontFamily: AppFont.primaryFont),
               ),
             ),
