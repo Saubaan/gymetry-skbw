@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../domain/entities/app_user.dart';
 import '../domain/repositories/auth_repo.dart';
@@ -14,12 +15,13 @@ class FirebaseAuthRepo implements AuthRepo {
         password: password,
       );
 
-
+      // get user data from firestore
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('trainers').doc(userCredential.user!.uid).get();
 
       AppUser user = AppUser(
         uid: userCredential.user!.uid,
         email: email,
-        name: '',
+        name: userDoc['name'],
       );
 
       return user;
@@ -40,11 +42,12 @@ class FirebaseAuthRepo implements AuthRepo {
     if (firebaseUser == null) {
       return null;
     }
+    DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('trainers').doc(firebaseUser.uid).get();
 
     return AppUser(
       uid: firebaseUser.uid,
       email: firebaseUser.email!,
-      name: '',
+      name: userDoc['name'],
     );
   }
 }
