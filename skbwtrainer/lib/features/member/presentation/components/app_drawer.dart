@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skbwtrainer/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:skbwtrainer/features/profile/presentation/pages/profile_page.dart';
 import 'package:skbwtrainer/themes/app_font.dart';
+import 'package:skbwtrainer/utils/app_snack_bar.dart';
 import 'package:skbwtrainer/utils/navigation.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -94,6 +95,7 @@ class AppDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pop(context);
+                AppSnackBar.showInfo('Coming Soon', context);
               },
             ),
 
@@ -124,6 +126,7 @@ class AppDrawer extends StatelessWidget {
                     ),
                     onTap: () {
                       Navigator.pop(context);
+                      AppSnackBar.showInfo('Coming Soon', context);
                     },
                   )
                 ],
