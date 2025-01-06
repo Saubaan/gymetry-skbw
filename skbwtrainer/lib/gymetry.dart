@@ -42,7 +42,7 @@ class Gymetry extends StatelessWidget {
 
               // Authenticated
               else if (state is Authenticated) {
-                return const HomePage();
+                return HomePage(user: state.user,);
               }
 
               // Loading
