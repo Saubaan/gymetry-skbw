@@ -45,6 +45,8 @@ class _MemberListPageState extends State<MemberListPage> {
         .where(
             (member) => member.name.toLowerCase().contains(query.toLowerCase()))
         .toList();
+
+    filteredMembers.sort((a, b) => a.expiryDate.compareTo(b.expiryDate));
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
       child: Padding(
