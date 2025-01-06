@@ -11,6 +11,11 @@ class AttendanceLoaded extends AttendanceState {
   AttendanceLoaded(this.attendance);
 }
 
+class AttendanceWeekLoaded extends AttendanceState {
+  final List<int> attendance;
+  AttendanceWeekLoaded(this.attendance);
+}
+
 class AttendanceError extends AttendanceState {
   final String message;
   AttendanceError(this.message);
