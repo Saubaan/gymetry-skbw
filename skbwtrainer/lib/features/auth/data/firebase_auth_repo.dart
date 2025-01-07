@@ -5,6 +5,20 @@ import '../domain/repositories/auth_repo.dart';
 
 class FirebaseAuthRepo implements AuthRepo {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  @override
+  Future<void> changePassword(String password, String newPassword) async {
+    try {
+      final user = firebaseAuth.currentUser;
+      if(user != null) {
+        await user.reauthenticateWithCredential(
+          EmailAuthProvider.credential(email: user.email!, password: password),
+        );
+        await user.updatePassword(newPassword);
+      }
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.code);
+    }
+  }
 
   @override
   Future<AppUser?> loginWithEmailAndPassword(String email, String password) async {
