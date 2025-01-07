@@ -101,7 +101,7 @@ showCustomSnackBar(BuildContext context, String title, String message, IconData 
                             message,
                             style: TextStyle(
                               color: textColor,
-                              fontSize: 15,
+                              fontSize: 12,
                               fontFamily: AppFont.primaryFont,
                             ),
                             maxLines: 2,
