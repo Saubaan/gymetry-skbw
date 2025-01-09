@@ -5,9 +5,9 @@ import 'package:skbwtrainer/features/member/data/firebase_member_repo.dart';
 import 'package:skbwtrainer/features/member/domain/repository/member_repo.dart';
 import 'package:skbwtrainer/features/member/presentation/cubits/member_cubit.dart';
 import 'package:skbwtrainer/features/member/presentation/cubits/member_states.dart';
-import 'package:skbwtrainer/themes/app_font.dart';
 import 'package:skbwtrainer/utils/app_snack_bar.dart';
 
+import '../../../../themes/app_font.dart';
 import '../../../approval/presentation/components/request_notification.dart';
 import 'member_list_page.dart';
 

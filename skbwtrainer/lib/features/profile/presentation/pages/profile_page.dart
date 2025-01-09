@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:skbwtrainer/components/title_card.dart';
 import 'package:skbwtrainer/features/profile/domain/entities/gym.dart';
-import 'package:skbwtrainer/themes/app_font.dart';
+
+import '../../../../themes/app_font.dart';
 
 class ProfilePage extends StatelessWidget {
   final Gym gym;

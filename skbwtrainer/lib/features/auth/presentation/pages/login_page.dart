@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skbwtrainer/components/auth_text_field.dart';
 import 'package:skbwtrainer/components/primary_button.dart';
 import 'package:skbwtrainer/features/auth/presentation/cubits/auth_cubit.dart';
-import 'package:skbwtrainer/themes/app_font.dart';
+
+import '../../../../themes/app_font.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

@@ -4,7 +4,7 @@ import 'package:skbwtrainer/components/title_card.dart';
 import 'package:skbwtrainer/features/member/domain/entities/member.dart';
 import 'package:skbwtrainer/features/member/presentation/cubits/member_cubit.dart';
 import 'package:skbwtrainer/features/member/presentation/pages/member_bloc.dart';
-import 'package:skbwtrainer/themes/app_font.dart';
+import '../../../../themes/app_font.dart';
 import '../../../../utils/navigation.dart';
 
 class MemberListPage extends StatefulWidget {

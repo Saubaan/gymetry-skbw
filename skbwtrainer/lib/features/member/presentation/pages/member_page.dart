@@ -4,11 +4,11 @@ import 'package:skbwtrainer/components/primary_button.dart';
 import 'package:skbwtrainer/components/title_card.dart';
 import 'package:skbwtrainer/features/member/domain/entities/member.dart';
 import 'package:skbwtrainer/features/member/presentation/components/attendance_calendar_bloc.dart';
-import 'package:skbwtrainer/themes/app_font.dart';
 import 'package:skbwtrainer/utils/app_snack_bar.dart';
 import 'package:skbwtrainer/utils/calendar_functions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../themes/app_font.dart';
 import '../cubits/member_cubit.dart';
 
 class MemberPage extends StatefulWidget {

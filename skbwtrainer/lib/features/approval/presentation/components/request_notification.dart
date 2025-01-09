@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skbwtrainer/features/approval/presentation/pages/approval_list_bloc.dart';
-import 'package:skbwtrainer/themes/app_font.dart';
 import 'package:skbwtrainer/utils/navigation.dart';
 
+import '../../../../themes/app_font.dart';
 import '../../data/firebase_approval_repo.dart';
 import '../../domain/repositories/approval_repo.dart';
 import '../cubits/approval_cubit.dart';

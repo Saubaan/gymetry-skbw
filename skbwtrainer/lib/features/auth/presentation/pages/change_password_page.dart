@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skbwtrainer/components/auth_text_field.dart';
 import 'package:skbwtrainer/components/primary_button.dart';
-import 'package:skbwtrainer/themes/app_font.dart';
 import 'package:skbwtrainer/utils/app_snack_bar.dart';
 
+import '../../../../themes/app_font.dart';
 import '../cubits/auth_cubit.dart';
 
 class ChangePasswordPage extends StatefulWidget {

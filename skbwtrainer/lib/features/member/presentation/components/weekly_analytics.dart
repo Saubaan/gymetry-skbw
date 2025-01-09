@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:skbwtrainer/themes/app_font.dart';
+import '../../../../themes/app_font.dart';
 
 class WeeklyAnalytics extends StatefulWidget {
   final List<int> weekAttendance;

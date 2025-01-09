@@ -5,8 +5,8 @@ import 'package:skbwtrainer/features/member/data/firebase_member_repo.dart';
 import 'package:skbwtrainer/features/member/domain/repository/member_repo.dart';
 import 'package:skbwtrainer/features/member/presentation/cubits/attendance_cubit.dart';
 import 'package:skbwtrainer/features/member/presentation/cubits/attendance_states.dart';
-import 'package:skbwtrainer/themes/app_font.dart';
 
+import '../../../../themes/app_font.dart';
 import '../../../../utils/calendar_functions.dart';
 
 class DayAnalyticBloc extends StatelessWidget {

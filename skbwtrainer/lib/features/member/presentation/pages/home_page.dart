@@ -6,8 +6,9 @@ import 'package:skbwtrainer/features/member/presentation/components/app_drawer.d
 import 'package:skbwtrainer/features/member/presentation/components/day_analytic_bloc.dart';
 import 'package:skbwtrainer/features/member/presentation/components/weekly_analytics_bloc.dart';
 import 'package:skbwtrainer/features/member/presentation/pages/member_list_bloc.dart';
-import 'package:skbwtrainer/themes/app_font.dart';
 import 'package:skbwtrainer/utils/navigation.dart';
+
+import '../../../../themes/app_font.dart';
 
 class HomePage extends StatefulWidget {
   final AppUser user;
