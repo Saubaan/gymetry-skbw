@@ -51,7 +51,9 @@ class FirebaseApprovalRepo implements ApprovalRepo {
 
       // Calculate the new expiry date
       DateTime newExpiryDate = DateTime.now().add(Duration(
-          days: pendingMember.expiryDate.difference(pendingMember.createdAt).inDays));
+          days: pendingMember.expiryDate
+              .difference(pendingMember.createdAt)
+              .inDays));
 
       // Create a member document
       Member member = Member(
@@ -63,6 +65,7 @@ class FirebaseApprovalRepo implements ApprovalRepo {
         isPaused: false,
         pauseStartDate: DateTime.now(),
         createdAt: DateTime.now(),
+        checkToday: DateTime.now(),
       );
 
       // Delete pending member document from the pendingMembers collection
