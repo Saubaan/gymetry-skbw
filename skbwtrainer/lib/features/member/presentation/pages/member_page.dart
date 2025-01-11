@@ -174,13 +174,7 @@ class _MemberPageState extends State<MemberPage> {
     } else {
       final memberCubit = context.read<MemberCubit>();
 
-      Member pausedMember = Member(
-        uid: widget.member.uid,
-        name: widget.member.name,
-        email: widget.member.email,
-        phone: widget.member.phone,
-        createdAt: widget.member.createdAt,
-        expiryDate: widget.member.expiryDate,
+      Member pausedMember = widget.member.copyWith(
         isPaused: true,
         pauseStartDate: DateTime(now.year, now.month, now.day),
       );
@@ -196,15 +190,9 @@ class _MemberPageState extends State<MemberPage> {
     final DateTime newExpiryDate = widget.member.expiryDate.add(
         Duration(days: now.difference(widget.member.pauseStartDate).inDays));
 
-    Member resumedMember = Member(
-      uid: widget.member.uid,
-      name: widget.member.name,
-      email: widget.member.email,
-      phone: widget.member.phone,
-      createdAt: widget.member.createdAt,
+    Member resumedMember = widget.member.copyWith(
       expiryDate: newExpiryDate,
       isPaused: false,
-      pauseStartDate: widget.member.pauseStartDate,
     );
 
     memberCubit.updateMember(
@@ -216,15 +204,8 @@ class _MemberPageState extends State<MemberPage> {
     final DateTime newExpiryDate =
         widget.member.expiryDate.add(Duration(days: int.parse(duration)));
 
-    Member extendedMember = Member(
-      uid: widget.member.uid,
-      name: widget.member.name,
-      email: widget.member.email,
-      phone: widget.member.phone,
-      createdAt: widget.member.createdAt,
+    Member extendedMember = widget.member.copyWith(
       expiryDate: newExpiryDate,
-      isPaused: widget.member.isPaused,
-      pauseStartDate: widget.member.pauseStartDate,
     );
 
     try {
@@ -246,15 +227,8 @@ class _MemberPageState extends State<MemberPage> {
       final DateTime newExpiryDate = widget.member.expiryDate
           .subtract(Duration(days: int.parse(duration)));
 
-      Member reducedMember = Member(
-        uid: widget.member.uid,
-        name: widget.member.name,
-        email: widget.member.email,
-        phone: widget.member.phone,
-        createdAt: widget.member.createdAt,
+      Member reducedMember = widget.member.copyWith(
         expiryDate: newExpiryDate,
-        isPaused: widget.member.isPaused,
-        pauseStartDate: widget.member.pauseStartDate,
       );
 
       try {
@@ -272,15 +246,9 @@ class _MemberPageState extends State<MemberPage> {
     final memberCubit = context.read<MemberCubit>();
     final DateTime newExpiryDate = DateTime.now();
 
-    Member revokedMember = Member(
-      uid: widget.member.uid,
-      name: widget.member.name,
-      email: widget.member.email,
-      phone: widget.member.phone,
-      createdAt: widget.member.createdAt,
+    Member revokedMember = widget.member.copyWith(
       expiryDate: newExpiryDate,
-      isPaused: widget.member.isPaused,
-      pauseStartDate: widget.member.pauseStartDate,
+      isPaused: false,
     );
 
     try {
