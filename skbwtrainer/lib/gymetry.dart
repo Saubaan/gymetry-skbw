@@ -56,7 +56,7 @@ class Gymetry extends StatelessWidget {
             },
             listener: (context, state) {
               if (state is AuthError) {
-                AppSnackBar.showError(getFirebaseAuthErrorMessage(state.message), context);
+                AppSnackBar.showError(getFirebaseAuthErrorMessage(state.message.replaceAll('Exception:', '')), context);
               }
               if (state is AuthSuccess) {
                 AppSnackBar.showSuccess(state.message, context);
