@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skbwmember/features/auth/domain/entities/pending_member.dart';
 import '../../domain/entities/app_user.dart';
 import '../../domain/repositories/auth_repo.dart';
 import 'auth_states.dart';
@@ -36,12 +37,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(Unauthenticated());
       }
     } on Exception catch (e) {
-      String message;
-      try { message = e.toString().split(' ')[1].trim();
-      } catch (e) {
-        message = e.toString();
-      }
-      emit(AuthError(message));
+      emit(AuthError(e.toString()));
       emit(Unauthenticated());
     }
   }
@@ -54,13 +50,21 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthSuccess('Password changed successfully'));
       emit(Authenticated(currentUser!));
     } on Exception catch (e) {
-      String message;
-      try { message = e.toString().split(' ')[1].trim();
-      } catch (e) {
-        message = e.toString();
-      }
-      emit(AuthError(message));
+      emit(AuthError(e.toString()));
       emit(Authenticated(currentUser!));
+    }
+  }
+
+  // register pending member for approval
+  Future<void> register(PendingMember member) async {
+    try {
+      emit(AuthLoading());
+      await authRepo.registerNewMember(member);
+      emit(AuthSuccess('Registration successful, please wait for approval'));
+      emit(Unauthenticated());
+    } on Exception catch (e) {
+      emit(AuthError(e.toString()));
+      emit(Unauthenticated());
     }
   }
 

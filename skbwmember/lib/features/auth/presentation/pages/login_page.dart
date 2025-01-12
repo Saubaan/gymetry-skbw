@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skbwmember/features/auth/presentation/components/auth_text_field.dart';
+import 'package:skbwmember/components/primary_button.dart';
+import 'package:skbwmember/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:skbwmember/theme/app_font.dart';
 
-import '../../../../components/auth_text_field.dart';
-import '../../../../components/primary_button.dart';
-import '../cubits/auth_cubit.dart';
-
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final void Function()? onTap;
+  const LoginPage({super.key, this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -77,9 +77,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
 
-                    /// Gymetry Trainer Text
+                    /// Gymetry Text
                     Text(
-                      'Gymetry Trainer',
+                      'Gymetry',
                       style: TextStyle(
                         color: theme.onSurface,
                         fontSize: sWidth / 19,
@@ -97,7 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         /// Login
                         Text(
                           'Login',
@@ -120,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
 
-                    SizedBox(height: sHeight / 80),
+                    SizedBox(height: sHeight / 100),
 
                     /// Login Form
                     Container(
@@ -136,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                             controller: emailController,
                           ),
 
-                          SizedBox(height: sHeight / 80),
+                          SizedBox(height: sHeight / 100),
 
                           /// Password Field
                           AuthTextField(
@@ -145,14 +144,14 @@ class _LoginPageState extends State<LoginPage> {
                             isObscure: isObscure,
                             onPressed: () {
                               setState(
-                                    () {
+                                () {
                                   isObscure = !isObscure;
                                 },
                               );
                             },
                           ),
 
-                          SizedBox(height: sHeight / 80),
+                          SizedBox(height: sHeight / 100),
 
                           /// Login Button
                           PrimaryButton(
@@ -160,6 +159,14 @@ class _LoginPageState extends State<LoginPage> {
                             onTap: login,
                             color: theme.primary,
                             textColor: theme.onPrimary,
+                          ),
+
+                          SizedBox(height: sHeight / 100),
+
+                          /// Register Button
+                          PrimaryButton(
+                            text: 'Not a member?',
+                            onTap: widget.onTap,
                           ),
                         ],
                       ),
