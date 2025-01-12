@@ -2,23 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:skbwmember/theme/app_font.dart';
 
 class AuthTextField extends StatelessWidget {
+  final String? Function(String?)? validator;
   final TextEditingController? controller;
   final String? hintText;
   final bool isObscure;
   final void Function()? onPressed;
-  const AuthTextField(
-      {super.key,
-      this.controller,
-      this.hintText,
-      this.isObscure = false,
-      this.onPressed});
+  final TextInputType? keyBoardType;
+  final void Function(String)? onSubmit;
+
+  const AuthTextField({
+    super.key,
+    this.controller,
+    this.hintText,
+    this.isObscure = false,
+    this.onPressed,
+    this.validator,
+    this.keyBoardType,
+    this.onSubmit,
+  });
 
   @override
   Widget build(BuildContext context) {
     final sWidth = MediaQuery.of(context).size.width;
     final theme = Theme.of(context).colorScheme;
 
-    return TextField(
+    return TextFormField(
+      onFieldSubmitted: onSubmit,
+      keyboardType: keyBoardType,
+      autocorrect: false,
       obscureText: isObscure,
       controller: controller,
       style: TextStyle(
@@ -26,6 +37,10 @@ class AuthTextField extends StatelessWidget {
         fontFamily: AppFont.primaryFont,
       ),
       decoration: InputDecoration(
+        errorStyle: TextStyle(
+          color: Colors.red.shade400,
+          fontFamily: AppFont.primaryFont,
+        ),
         hintText: hintText,
         fillColor: theme.surface.withAlpha(200),
         filled: true,
@@ -53,6 +68,7 @@ class AuthTextField extends StatelessWidget {
           fontFamily: AppFont.primaryFont,
         ),
       ),
+      validator: validator,
     );
   }
 }
