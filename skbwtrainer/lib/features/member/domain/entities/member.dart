@@ -9,7 +9,7 @@ class Member {
   final DateTime expiryDate;
   final bool isPaused;
   final DateTime pauseStartDate;
-  final DateTime checkToday;
+  final DateTime checkDate;
 
   Member({
     required this.uid,
@@ -20,7 +20,7 @@ class Member {
     required this.expiryDate,
     required this.isPaused,
     required this.pauseStartDate,
-    required this.checkToday,
+    required this.checkDate,
   });
 
   Map<String, dynamic> toJson() {
@@ -33,6 +33,7 @@ class Member {
       'isPaused': isPaused,
       'pauseStartDate': Timestamp.fromDate(pauseStartDate),
       'createdAt': Timestamp.fromDate(createdAt),
+      'checkDate': Timestamp.fromDate(checkDate),
     };
   }
 
@@ -46,11 +47,12 @@ class Member {
       isPaused: json['isPaused'],
       pauseStartDate: json['pauseStartDate'].toDate(),
       createdAt: json['createdAt'].toDate(),
-      checkToday: json['checkToday'].toDate(),
+      checkDate: json['checkDate'].toDate(),
     );
   }
 
   Member copyWith({
+    String? avatar,
     String? uid,
     String? name,
     String? email,
@@ -59,7 +61,7 @@ class Member {
     DateTime? expiryDate,
     bool? isPaused,
     DateTime? pauseStartDate,
-    DateTime? checkToday,
+    DateTime? checkDate,
   }) {
     return Member(
       uid: uid ?? this.uid,
@@ -70,7 +72,7 @@ class Member {
       expiryDate: expiryDate ?? this.expiryDate,
       isPaused: isPaused ?? this.isPaused,
       pauseStartDate: pauseStartDate ?? this.pauseStartDate,
-      checkToday: checkToday ?? this.checkToday,
+      checkDate: checkDate ?? this.checkDate,
     );
   }
 }

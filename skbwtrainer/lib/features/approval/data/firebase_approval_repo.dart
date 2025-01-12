@@ -65,7 +65,7 @@ class FirebaseApprovalRepo implements ApprovalRepo {
         isPaused: false,
         pauseStartDate: DateTime.now(),
         createdAt: DateTime.now(),
-        checkToday: DateTime.now(),
+        checkDate: DateTime.now(),
       );
 
       // Delete pending member document from the pendingMembers collection
