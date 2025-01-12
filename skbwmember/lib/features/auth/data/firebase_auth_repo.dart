@@ -29,9 +29,19 @@ class FirebaseAuthRepo implements AuthRepo {
           name: userDoc['name'],
         );
         return user;
-      } else {
-        firebaseAuth.signOut();
-        throw Exception('Member not found');
+      }
+      else {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('trainers')
+            .doc(userCredential.user!.uid)
+            .get();
+        if(userDoc.exists){
+          await firebaseAuth.signOut();
+          throw Exception('Member not found');
+        } else {
+          await firebaseAuth.currentUser?.delete();
+          throw Exception('Member not found');
+        }
       }
     } catch (e) {
       throw Exception(e);
