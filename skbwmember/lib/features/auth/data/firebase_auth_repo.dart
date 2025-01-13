@@ -8,7 +8,8 @@ class FirebaseAuthRepo implements AuthRepo {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   @override
-  Future<AppUser?> loginWithEmailAndPassword(String email, String password) async {
+  Future<AppUser?> loginWithEmailAndPassword(
+      String email, String password) async {
     try {
       UserCredential userCredential =
           await firebaseAuth.signInWithEmailAndPassword(
@@ -22,6 +23,11 @@ class FirebaseAuthRepo implements AuthRepo {
           .doc(userCredential.user!.uid)
           .get();
 
+      DocumentSnapshot trainerDoc = await FirebaseFirestore.instance
+          .collection('trainers')
+          .doc(userCredential.user!.uid)
+          .get();
+
       if (userDoc.exists) {
         AppUser user = AppUser(
           uid: userCredential.user!.uid,
@@ -29,19 +35,12 @@ class FirebaseAuthRepo implements AuthRepo {
           name: userDoc['name'],
         );
         return user;
-      }
-      else {
-        DocumentSnapshot userDoc = await FirebaseFirestore.instance
-            .collection('trainers')
-            .doc(userCredential.user!.uid)
-            .get();
-        if(userDoc.exists){
-          await firebaseAuth.signOut();
-          throw Exception('Member not found');
-        } else {
-          await firebaseAuth.currentUser?.delete();
-          throw Exception('Member not found');
-        }
+      } else if (trainerDoc.exists) {
+        await firebaseAuth.signOut();
+        throw Exception('Member not found');
+      } else {
+        await firebaseAuth.currentUser?.delete();
+        throw Exception('Member not found');
       }
     } catch (e) {
       throw Exception(e);
@@ -75,7 +74,7 @@ class FirebaseAuthRepo implements AuthRepo {
         .doc(firebaseUser.uid)
         .get();
 
-    if (!userDoc.exists) {
+    if (userDoc.exists) {
       return AppUser(
         uid: firebaseUser.uid,
         email: firebaseUser.email!,
