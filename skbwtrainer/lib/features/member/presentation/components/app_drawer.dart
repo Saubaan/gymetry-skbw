@@ -22,7 +22,7 @@ class AppDrawer extends StatelessWidget {
     final sWidth = MediaQuery.of(context).size.width;
     final gym = Gym(
       id: 'SKBW',
-      name: 'S. K. Body Works',
+      name: 'S K Body Care',
       address: '',
       phone: '',
       gymCode: 'gymetry-skbw',
