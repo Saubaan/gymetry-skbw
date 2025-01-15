@@ -7,7 +7,6 @@ import 'package:skbwtrainer/features/approval/domain/repositories/approval_repo.
 import 'package:skbwtrainer/features/approval/presentation/cubits/approval_cubit.dart';
 import 'package:skbwtrainer/features/approval/presentation/cubits/approval_states.dart';
 import 'package:skbwtrainer/features/approval/presentation/pages/approval_list_bloc.dart';
-import 'package:skbwtrainer/themes/app_font.dart';
 import 'package:skbwtrainer/utils/navigation.dart';
 
 class RequestTab extends StatelessWidget {
@@ -40,7 +39,10 @@ class RequestTab extends StatelessWidget {
                                     context.read<ApprovalCubit>();
                                 await pushPage(context, ApprovalListBloc(), 1);
                                 approvalCubit.getNumber();
-                              }),
+                              },
+                            color: theme.onSecondary,
+                            textColor: theme.secondary,
+                          ),
                         ],
                       ),
                       SizedBox(height: 10),
