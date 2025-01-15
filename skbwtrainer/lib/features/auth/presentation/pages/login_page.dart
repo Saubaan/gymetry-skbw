@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(sWidth / 40),
                       child: Image.asset(
                         'assets/logo/logo-w.png',
-                        height: sWidth / 6,
+                        height: sWidth / 4,
                       ),
                     ),
 
@@ -171,6 +171,8 @@ class _LoginPageState extends State<LoginPage> {
                   height: 10,
                 ),
 
+                const SizedBox(),
+
                 /// Gym Name Text
                 Column(
                   children: [
@@ -183,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Text(
-                      'S. K. Body Works',
+                      'S K Body Care',
                       style: TextStyle(
                         color: theme.onSurface,
                         fontSize: sWidth / 24,
