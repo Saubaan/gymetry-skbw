@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skbwtrainer/features/auth/presentation/cubits/auth_cubit.dart';
-import 'package:skbwtrainer/features/auth/presentation/pages/change_password_page.dart';
+import 'package:skbwtrainer/features/auth/presentation/pages/settings_page.dart';
 import 'package:skbwtrainer/features/profile/domain/entities/gym.dart';
 import 'package:skbwtrainer/features/profile/presentation/pages/profile_page.dart';
 import 'package:skbwtrainer/utils/app_snack_bar.dart';
@@ -38,12 +38,12 @@ class AppDrawer extends StatelessWidget {
               tileColor: theme.primary.withAlpha(50),
               leading: ClipOval(
                 child: Image.asset(
-                  'assets/logo/logo-w.png',
+                  'assets/logo/logo-wg.png',
                   height: sWidth / 15,
                 ),
               ),
               title: Text(
-                'SK Body Works',
+                'SK Body Care',
                 style: TextStyle(
                   fontFamily: AppFont.logoFont,
                   fontSize: sWidth / 25,
@@ -81,7 +81,7 @@ class AppDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pop(context);
-                pushPage(context, ChangePasswordPage(), 1);
+                pushPage(context, SettingsPage(), 1);
               },
             ),
 
