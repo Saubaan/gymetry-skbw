@@ -12,7 +12,7 @@ import '../../../approval/presentation/components/request_notification.dart';
 import 'member_list_page.dart';
 
 class MemberListBloc extends StatelessWidget {
-  final MemberRepo memberRepo = FireBaseMemberRepo();
+  final MemberRepo memberRepo = FirebaseMemberRepo();
   MemberListBloc({super.key});
 
   @override

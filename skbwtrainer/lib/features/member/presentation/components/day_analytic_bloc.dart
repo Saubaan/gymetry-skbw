@@ -10,7 +10,7 @@ import '../../../../themes/app_font.dart';
 import '../../../../utils/calendar_functions.dart';
 
 class DayAnalyticBloc extends StatelessWidget {
-  final MemberRepo memberRepo = FireBaseMemberRepo();
+  final MemberRepo memberRepo = FirebaseMemberRepo();
   DayAnalyticBloc({super.key});
 
   String getLastVisitTime(DateTime dateTime) {

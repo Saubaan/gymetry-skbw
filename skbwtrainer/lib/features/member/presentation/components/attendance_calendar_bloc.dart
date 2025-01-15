@@ -12,7 +12,7 @@ class AttendanceCalendarBloc extends StatelessWidget {
   final DateTime startDate;
   final DateTime endDate;
   final DateTime focusedDay;
-  final MemberRepo memberRepo = FireBaseMemberRepo();
+  final MemberRepo memberRepo = FirebaseMemberRepo();
 
   AttendanceCalendarBloc(
       {super.key,

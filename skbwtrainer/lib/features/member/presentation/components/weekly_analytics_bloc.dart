@@ -9,7 +9,7 @@ import 'package:skbwtrainer/features/member/presentation/cubits/attendance_cubit
 import '../cubits/attendance_states.dart';
 
 class WeeklyAnalyticsBloc extends StatelessWidget {
-  final MemberRepo memberRepo = FireBaseMemberRepo();
+  final MemberRepo memberRepo = FirebaseMemberRepo();
 
   WeeklyAnalyticsBloc({super.key});
 

@@ -12,7 +12,7 @@ import 'member_page.dart';
 
 class MemberBloc extends StatelessWidget {
   final String id;
-  final MemberRepo memberRepo = FireBaseMemberRepo();
+  final MemberRepo memberRepo = FirebaseMemberRepo();
 
   MemberBloc({super.key, required this.id});
 
@@ -26,7 +26,7 @@ class MemberBloc extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'S.K. Body Works Member',
+            'SK Body Care Member',
             style: TextStyle(
               fontFamily: AppFont.primaryFont,
               fontSize: 18,

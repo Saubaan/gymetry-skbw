@@ -4,9 +4,8 @@ import 'package:skbwtrainer/features/member/domain/entities/attendance.dart';
 import 'package:skbwtrainer/features/member/domain/entities/member.dart';
 import 'package:skbwtrainer/features/member/domain/repository/member_repo.dart';
 
-class FireBaseMemberRepo implements MemberRepo {
+class FirebaseMemberRepo implements MemberRepo {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   final CollectionReference membersCollection =
       FirebaseFirestore.instance.collection('members');
