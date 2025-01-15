@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:skbwtrainer/components/primary_button.dart';
 import 'package:skbwtrainer/components/title_card.dart';
+import 'package:skbwtrainer/features/approval/presentation/components/request_tab.dart';
 import 'package:skbwtrainer/features/auth/domain/entities/app_user.dart';
 import 'package:skbwtrainer/features/member/presentation/components/app_drawer.dart';
 import 'package:skbwtrainer/features/member/presentation/components/day_analytic_bloc.dart';
 import 'package:skbwtrainer/features/member/presentation/components/weekly_analytics_bloc.dart';
 import 'package:skbwtrainer/features/member/presentation/pages/member_list_bloc.dart';
+import 'package:skbwtrainer/themes/app_font.dart';
 import 'package:skbwtrainer/utils/navigation.dart';
-
-import '../../../../themes/app_font.dart';
 
 class HomePage extends StatefulWidget {
   final AppUser user;
@@ -75,6 +75,8 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               SizedBox(height: 10),
+
+              RequestTab(),
 
               // Weekly Analytics
               TitleCard(
