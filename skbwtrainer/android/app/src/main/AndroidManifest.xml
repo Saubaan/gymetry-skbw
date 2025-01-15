@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <application
-        android:label="S.K.Gym Trainer"
+        android:label="SK Gym Trainer"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
