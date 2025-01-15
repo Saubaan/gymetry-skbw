@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:skbwtrainer/components/title_card.dart';
 import 'package:skbwtrainer/features/profile/domain/entities/gym.dart';
-
-import '../../../../themes/app_font.dart';
+import 'package:skbwtrainer/themes/app_font.dart';
 
 class ProfilePage extends StatelessWidget {
   final Gym gym;
@@ -11,6 +10,8 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sWidth = MediaQuery.of(context).size.width;
+
     final theme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
@@ -48,7 +49,7 @@ class ProfilePage extends StatelessWidget {
                 title: 'Gym QR Code',
                 children: [
                   Container(
-                    height: 250,
+                    height: sWidth * 0.5,
                     padding: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -58,10 +59,6 @@ class ProfilePage extends StatelessWidget {
                     child: QrImageView(
                       data: gym.gymCode,
                       version: QrVersions.auto,
-                      embeddedImage: (AssetImage('assets/logo/logo-w.png')),
-                      embeddedImageStyle: QrEmbeddedImageStyle(
-                        size: Size(40, 40),
-                      ),
                     ),
                   ),
                   SizedBox(height: 10),
