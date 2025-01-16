@@ -5,7 +5,7 @@ import 'package:skbwmember/features/auth/data/firebase_auth_repo.dart';
 import 'package:skbwmember/features/auth/domain/repositories/auth_repo.dart';
 import 'package:skbwmember/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:skbwmember/features/auth/presentation/cubits/auth_states.dart';
-import 'package:skbwmember/features/member/presentation/pages/home_page.dart';
+import 'package:skbwmember/features/member/presentation/pages/home_page_bloc.dart';
 import 'package:skbwmember/theme/dark_mode.dart';
 import 'package:skbwmember/theme/light_mode.dart';
 import 'package:skbwmember/utils/app_snack_bar.dart';
@@ -42,7 +42,7 @@ class Gymetry extends StatelessWidget {
 
           // Authenticated
           else if (state is Authenticated) {
-            return HomePage(
+            return HomePageBloc(
               user: state.user,
             );
           }
