@@ -42,6 +42,10 @@ class FirebaseAuthRepo implements AuthRepo {
         await firebaseAuth.currentUser?.delete();
         throw Exception('Member not found');
       }
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.code);
+    } on FirebaseException catch (e) {
+      throw Exception(e.code);
     } catch (e) {
       throw Exception(e);
     }
@@ -93,6 +97,8 @@ class FirebaseAuthRepo implements AuthRepo {
           .collection('pendingMembers')
           .doc(member.email)
           .set(member.toJson());
+    } on FirebaseException catch (e) {
+      throw Exception(e.code);
     } catch (e) {
       throw Exception(e);
     }
