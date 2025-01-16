@@ -34,3 +34,7 @@ String time24to12(int hour, int minute) {
   int displayHour = hour > 12 ? hour - 12 : hour;
   return '$displayHour:${minute.toString().padLeft(2, '0')} $period';
 }
+
+String dateTimeToDate(DateTime date) {
+  return '${date.day} ${monthNameFromInt(date.month)} ${date.year}';
+}
