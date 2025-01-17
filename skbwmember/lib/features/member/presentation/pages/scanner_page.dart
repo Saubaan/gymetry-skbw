@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:skbwmember/theme/app_font.dart';
 
 class ScannerPage extends StatefulWidget {
   const ScannerPage({super.key});
@@ -41,8 +42,7 @@ class _ScannerPageState extends State<ScannerPage> {
                 padding: const EdgeInsets.all(15),
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(
-                        color: theme.tertiary),
+                    border: Border.all(color: theme.tertiary),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Stack(
@@ -51,6 +51,10 @@ class _ScannerPageState extends State<ScannerPage> {
                       Stack(
                         alignment: Alignment.center,
                         children: [
+                          SizedBox(
+                            height: double.infinity,
+                            width: double.infinity,
+                          ),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: MobileScanner(
@@ -84,8 +88,11 @@ class _ScannerPageState extends State<ScannerPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'Try using torch to focus camera',
-                          style: TextStyle(color: Colors.grey.shade50),
+                          'Scan Gym QR Code',
+                          style: TextStyle(
+                            color: Colors.grey.shade50,
+                            fontFamily: AppFont.primaryFont,
+                          ),
                         ),
                       ),
                     ],
@@ -107,16 +114,12 @@ class _ScannerPageState extends State<ScannerPage> {
                           height: 50,
                           width: 50,
                           decoration: BoxDecoration(
-                            color: flash
-                                ? theme.primary
-                                : theme.secondary,
+                            color: flash ? theme.primary : theme.secondary,
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: Icon(
                             flash ? Icons.flashlight_on : Icons.flashlight_off,
-                            color: flash
-                                ? theme.onPrimary
-                                : theme.onSecondary,
+                            color: flash ? theme.onPrimary : theme.onSecondary,
                           ),
                         ),
                       ),
