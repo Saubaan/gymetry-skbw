@@ -80,14 +80,29 @@ class FirebaseMemberRepo implements MemberRepo {
   }
 
   @override
-  Future<void> markAttendance(String memberId) {
+  Future<void> markAttendance(String memberId) async {
     try {
       final Attendance attendance = Attendance(
         memberId: memberId,
         date: DateTime.now(),
       );
+      // check if member subscription is paused then resume it
+      DocumentSnapshot memberDoc = await membersCollection.doc(memberId).get();
+      if (!memberDoc.exists) {
+        throw Exception('Member not found');
+      } else {
+        final member = Member.fromJson(memberDoc.data() as Map<String, dynamic>);
+        if(member.expiryDate.isBefore(DateTime.now())) {
+          throw Exception('Member subscription expired');
+        } else if (member.isPaused) {
+          final now = DateTime.now();
+          final newExpiryDate = DateTime.now().add(member.pauseStartDate.difference(DateTime(now.year, now.month, now.day)));
+          final newMember = member.copyWith(isPaused: false, expiryDate: newExpiryDate);
+          await membersCollection.doc(memberId).update(newMember.toJson());
+        }
+      }
       // Mark attendance for the member in the attendance collection
-      return attendanceCollection.add(attendance.toJson());
+      attendanceCollection.add(attendance.toJson());
     } on FirebaseException catch (e) {
       throw Exception(e.code);
     } catch (e) {
