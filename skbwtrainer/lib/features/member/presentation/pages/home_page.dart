@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: theme.primary,
         centerTitle: true,
         title: Text(
-          'Gymetry',
+          'SK Body Care',
           style: TextStyle(fontFamily: AppFont.primaryFont),
         ),
       ),
