@@ -72,8 +72,10 @@ class _LoginPageState extends State<LoginPage> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(sWidth / 40),
                       child: Image.asset(
-                        'assets/logo/logo-w.png',
-                        height: sWidth / 6,
+                        Theme.of(context).brightness == Brightness.dark
+                            ? 'assets/logo/logo-w.png'
+                            : 'assets/logo/logo-b.png',
+                        height: sWidth / 4,
                       ),
                     ),
 
@@ -182,19 +184,23 @@ class _LoginPageState extends State<LoginPage> {
                 Column(
                   children: [
                     Text(
-                      'made for',
+                      'Developed by Bitvert',
                       style: TextStyle(
                         color: theme.onSurface.withAlpha(100),
                         fontSize: sWidth / 30,
                         fontFamily: AppFont.primaryFont,
                       ),
                     ),
-                    Text(
-                      'S. K. Body Care',
-                      style: TextStyle(
-                        color: theme.onSurface,
-                        fontSize: sWidth / 24,
-                        fontFamily: AppFont.primaryFont,
+                    // about text button
+                    GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        'About Us',
+                        style: TextStyle(
+                          color: theme.onSurface.withAlpha(200),
+                          fontSize: sWidth / 30,
+                          fontFamily: AppFont.primaryFont,
+                        ),
                       ),
                     ),
                   ],
