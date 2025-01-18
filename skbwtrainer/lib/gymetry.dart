@@ -36,7 +36,7 @@ class Gymetry extends StatelessWidget {
               child: child!,
             );
           },
-          title: 'Gymetry',
+          title: 'Gymetry Trainer',
           debugShowCheckedModeBanner: false,
           theme: theme,
           home: BlocConsumer<AuthCubit, AuthState>(builder: (context, state) {
