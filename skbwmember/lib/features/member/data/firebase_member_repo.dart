@@ -57,21 +57,18 @@ class FirebaseMemberRepo implements MemberRepo {
   }
 
   @override
-  Future<bool> getTodayAttendance(String memberId) {
+  Future<bool> getTodayAttendance(String memberId) async {
     try {
       // Get today's attendance document for the member from the attendance collection
       final now = DateTime.now();
       final startOfDay = DateTime(now.year, now.month, now.day);
       final endOfDay = DateTime(now.year, now.month, now.day, 23, 59, 59);
-      return attendanceCollection
+      QuerySnapshot todayAttendance = await attendanceCollection
           .where('memberId', isEqualTo: memberId)
-          .where(
-            'date',
-            isGreaterThanOrEqualTo: Timestamp.fromDate(startOfDay),
-            isLessThanOrEqualTo: Timestamp.fromDate(endOfDay),
-          )
-          .get()
-          .then((value) => value.docs.isNotEmpty);
+          .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(startOfDay))
+          .where('date', isLessThanOrEqualTo: Timestamp.fromDate(endOfDay))
+          .get();
+      return todayAttendance.docs.isNotEmpty;
     } on FirebaseException catch (e) {
       throw Exception(e.code);
     } catch (e) {
@@ -80,29 +77,43 @@ class FirebaseMemberRepo implements MemberRepo {
   }
 
   @override
-  Future<void> markAttendance(String memberId) async {
+  Future<void> markAttendance(String memberId, String code) async {
     try {
-      final Attendance attendance = Attendance(
-        memberId: memberId,
-        date: DateTime.now(),
-      );
-      // check if member subscription is paused then resume it
-      DocumentSnapshot memberDoc = await membersCollection.doc(memberId).get();
-      if (!memberDoc.exists) {
-        throw Exception('Member not found');
-      } else {
-        final member = Member.fromJson(memberDoc.data() as Map<String, dynamic>);
-        if(member.expiryDate.isBefore(DateTime.now())) {
-          throw Exception('Member subscription expired');
-        } else if (member.isPaused) {
-          final now = DateTime.now();
-          final newExpiryDate = DateTime.now().add(member.pauseStartDate.difference(DateTime(now.year, now.month, now.day)));
-          final newMember = member.copyWith(isPaused: false, expiryDate: newExpiryDate);
-          await membersCollection.doc(memberId).update(newMember.toJson());
+      // Get gym Code
+      DocumentSnapshot gymDoc =
+          await firestore.collection('gym').doc('SKBW').get();
+      String gymCode = gymDoc.get('gymCode');
+
+      if (code == gymCode) {
+        final Attendance attendance = Attendance(
+          memberId: memberId,
+          date: DateTime.now(),
+        );
+
+        // check if member subscription is paused then resume it
+        DocumentSnapshot memberDoc =
+            await membersCollection.doc(memberId).get();
+        if (!memberDoc.exists) {
+          throw Exception('Member not found');
+        } else {
+          final member =
+              Member.fromJson(memberDoc.data() as Map<String, dynamic>);
+          if (member.expiryDate.isBefore(DateTime.now())) {
+            throw Exception('Member subscription expired');
+          } else if (member.isPaused) {
+            final now = DateTime.now();
+            final newExpiryDate = member.expiryDate.add(
+                Duration(days: member.pauseStartDate.difference(now).inDays));
+            final newMember =
+                member.copyWith(isPaused: false, expiryDate: newExpiryDate);
+            await membersCollection.doc(memberId).update(newMember.toJson());
+          }
         }
+        // Mark attendance for the member in the attendance collection
+        attendanceCollection.add(attendance.toJson());
+      } else {
+        throw Exception('Invalid code');
       }
-      // Mark attendance for the member in the attendance collection
-      attendanceCollection.add(attendance.toJson());
     } on FirebaseException catch (e) {
       throw Exception(e.code);
     } catch (e) {
