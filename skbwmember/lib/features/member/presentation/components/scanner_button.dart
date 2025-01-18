@@ -69,6 +69,8 @@ class _ScannerButtonState extends State<ScannerButton> {
     return PrimaryButton(
       text: 'Scan QR Code',
       onTap: widget.isMarked ? marked : markAttendance,
+      color: Theme.of(context).colorScheme.primary,
+      textColor: Theme.of(context).colorScheme.onPrimary,
     );
   }
 }
