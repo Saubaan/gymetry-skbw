@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:skbwmember/components/title_card.dart';
 import 'package:skbwmember/features/member/domain/entities/member.dart';
 import 'package:skbwmember/features/member/presentation/components/attendance_calendar_bloc.dart';
-import 'package:skbwmember/features/member/presentation/pages/scanner_page.dart';
+import 'package:skbwmember/features/member/presentation/components/scanner_tile.dart';
 import 'package:skbwmember/theme/app_font.dart';
 import 'package:skbwmember/utils/calendar_functions.dart';
 
@@ -16,12 +15,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   getMemberShipText() {
     if (widget.member.isPaused) {
-      return 'Membership is paused';
+      return 'Membership paused on ${dateTimeToDate(widget.member.pauseStartDate)}';
     } else {
       if (widget.member.expiryDate.isAfter(DateTime.now())) {
-        return 'Membership active until \n${dateTimeToDate(widget.member.expiryDate)}';
+        return 'Membership active until ${dateTimeToDate(widget.member.expiryDate)}';
       } else {
         return 'Membership expired ${widget.member.expiryDate.difference(DateTime.now()).inDays} days ago';
       }
@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -48,12 +49,13 @@ class _HomePageState extends State<HomePage> {
                   getMemberShipText(),
                   style: TextStyle(
                     color: widget.member.isPaused
-                        ? Colors.red
+                        ? theme.onSecondary.withAlpha(150)
                         : widget.member.expiryDate.isAfter(DateTime.now())
-                            ? Colors.green
-                            : Colors.red,
+                            ? theme.primary
+                            : theme.error,
                     fontSize: 13,
-                    fontFamily: AppFont.primaryFont,
+                    fontFamily: AppFont.logoFont,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
@@ -70,6 +72,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
+            SizedBox(height: 10),
+
+            ScannerTile(memberUID: widget.member.uid),
           ],
         ),
       ),
