@@ -15,5 +15,5 @@ abstract class MemberRepo {
   Future<bool> getTodayAttendance(String memberId);
 
   // mark attendance for today
-  Future<void> markAttendance(String memberId);
+  Future<void> markAttendance(String memberId, String code);
 }
