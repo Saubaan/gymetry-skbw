@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 ThemeData darkMode = ThemeData(
+  brightness: Brightness.dark,
   colorScheme: ColorScheme.dark(
     primary: Color(0xFFEF9100), // Green as the primary color
     onPrimary: Color(0xFF000000), // Black for text/icons on primary
