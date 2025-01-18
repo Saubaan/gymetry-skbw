@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skbwmember/features/auth/domain/entities/app_user.dart';
-import 'package:skbwmember/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:skbwmember/features/member/data/firebase_member_repo.dart';
 import 'package:skbwmember/features/member/domain/repositories/member_repo.dart';
 import 'package:skbwmember/features/member/presentation/components/app_drawer.dart';
@@ -20,10 +19,6 @@ class HomePageBloc extends StatefulWidget {
 
 class _HomePageBlocState extends State<HomePageBloc> {
   final MemberRepo memberRepo = FirebaseMemberRepo();
-  void logout() {
-    final authCubit = context.read<AuthCubit>();
-    authCubit.logout();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +38,6 @@ class _HomePageBlocState extends State<HomePageBloc> {
               fontFamily: AppFont.primaryFont,
             ),
           ),
-          actions: [
-            IconButton(
-              onPressed: logout,
-              icon: const Icon(Icons.logout),
-            ),
-          ],
         ),
         drawer: AppDrawer(),
         body: BlocConsumer<MemberCubit, MemberState>(builder: (context, state) {
