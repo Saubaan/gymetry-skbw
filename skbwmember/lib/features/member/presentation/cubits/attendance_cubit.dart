@@ -8,15 +8,15 @@ class AttendanceCubit extends Cubit<AttendanceState> {
 
   AttendanceCubit({required this.memberRepo}) : super(AttendanceInitial());
 
-  Future<void> markAttendance(String id) async {
+  Future<void> markAttendance(String id, String code) async {
     emit(AttendanceLoading());
     try {
-      await memberRepo.markAttendance(id);
+      await memberRepo.markAttendance(id, code);
       emit(AttendanceMarked());
-      final isMarked = await memberRepo.getTodayAttendance(id);
-      emit(AttendanceTodayMarked(isMarked));
+      emit(AttendanceTodayMarked(true));
     } on Exception catch (e) {
       emit(AttendanceError(e.toString()));
+      emit(AttendanceTodayMarked(false));
     }
   }
 
