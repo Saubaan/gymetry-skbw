@@ -25,7 +25,7 @@ class ApprovalListBloc extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'All members',
+            'Pending Members',
             style: TextStyle(
               fontFamily: AppFont.primaryFont,
               fontSize: 18,
