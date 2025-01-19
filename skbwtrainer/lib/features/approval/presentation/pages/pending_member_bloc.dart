@@ -26,7 +26,7 @@ class PendingMemberBloc extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'S.K. Body Works Member',
+            'Pending Member',
             style: TextStyle(
               fontFamily: AppFont.primaryFont,
               fontSize: 18,
