@@ -305,7 +305,7 @@ class _MemberPageState extends State<MemberPage> {
                         ),
                       ),
                       Text(
-                        'Joined on: ${widget.member.createdAt.day} ${monthNameFromInt(widget.member.createdAt.month)} ${widget.member.createdAt.year}',
+                        'Joined on: ${dateTimeToDate(widget.member.createdAt)}',
                         style: TextStyle(
                           fontSize: 16,
                           color: theme.onSecondary.withAlpha(150),
@@ -361,8 +361,8 @@ class _MemberPageState extends State<MemberPage> {
                           ),
                           Text(
                             widget.member.isPaused
-                                ? 'Paused on: ${widget.member.pauseStartDate.day} ${monthNameFromInt(widget.member.pauseStartDate.month)} ${widget.member.pauseStartDate.year}'
-                                : '${widget.member.expiryDate.isAfter(DateTime.now()) ? 'Expires on' : 'Expired on'} ${widget.member.expiryDate.day} ${monthNameFromInt(widget.member.expiryDate.month)} ${widget.member.expiryDate.year}',
+                                ? 'Paused on: ${dateTimeToDate(widget.member.pauseStartDate)}'
+                                : '${widget.member.expiryDate.isAfter(DateTime.now()) ? 'Expires on' : 'Expired on'} ${dateTimeToDate(widget.member.expiryDate)}',
                             style: TextStyle(
                               fontSize: 14,
                               color: theme.onSecondary.withAlpha(150),
