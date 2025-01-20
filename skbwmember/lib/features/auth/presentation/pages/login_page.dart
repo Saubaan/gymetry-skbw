@@ -135,6 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                           AuthTextField(
                             hintText: 'E-mail',
                             controller: emailController,
+                            keyBoardType: TextInputType.emailAddress,
                           ),
 
                           SizedBox(height: sHeight / 100),
