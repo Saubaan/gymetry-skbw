@@ -97,7 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         /// Login
                         Text(
                           'Login',
@@ -134,6 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                           AuthTextField(
                             hintText: 'E-mail',
                             controller: emailController,
+                            keyBoardType: TextInputType.emailAddress,
                           ),
 
                           SizedBox(height: sHeight / 80),
@@ -177,19 +177,23 @@ class _LoginPageState extends State<LoginPage> {
                 Column(
                   children: [
                     Text(
-                      'made for',
+                      'Developed by Bitvert',
                       style: TextStyle(
                         color: theme.onSurface.withAlpha(100),
                         fontSize: sWidth / 30,
                         fontFamily: AppFont.primaryFont,
                       ),
                     ),
-                    Text(
-                      'S K Body Care',
-                      style: TextStyle(
-                        color: theme.onSurface,
-                        fontSize: sWidth / 24,
-                        fontFamily: AppFont.primaryFont,
+                    // about text button
+                    GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        'About Us',
+                        style: TextStyle(
+                          color: theme.onSurface.withAlpha(200),
+                          fontSize: sWidth / 30,
+                          fontFamily: AppFont.primaryFont,
+                        ),
                       ),
                     ),
                   ],
