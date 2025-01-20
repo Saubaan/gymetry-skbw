@@ -112,7 +112,7 @@ class FirebaseMemberRepo implements MemberRepo {
         // Mark attendance for the member in the attendance collection
         attendanceCollection.add(attendance.toJson());
       } else {
-        throw Exception('Invalid code');
+        throw Exception('Invalid QR code');
       }
     } on FirebaseException catch (e) {
       throw Exception(e.code);
