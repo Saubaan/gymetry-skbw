@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:skbwmember/components/primary_button.dart';
 import 'package:skbwmember/features/member/presentation/cubits/attendance_cubit.dart';
-import 'package:skbwmember/features/member/presentation/cubits/member_cubit.dart';
 import 'package:skbwmember/features/member/presentation/pages/scanner_page.dart';
 import 'package:skbwmember/utils/app_snack_bar.dart';
 
