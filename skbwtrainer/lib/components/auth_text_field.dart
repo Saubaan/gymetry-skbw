@@ -6,20 +6,23 @@ class AuthTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? hintText;
   final bool isObscure;
+  final TextInputType? keyBoardType;
   final void Function()? onPressed;
   const AuthTextField(
       {super.key,
       this.controller,
       this.hintText,
       this.isObscure = false,
-      this.onPressed});
+      this.onPressed,
+      this.keyBoardType});
 
   @override
   Widget build(BuildContext context) {
     final sWidth = MediaQuery.of(context).size.width;
     final theme = Theme.of(context).colorScheme;
 
-    return TextField(
+    return TextFormField(
+      keyboardType: keyBoardType,
       obscureText: isObscure,
       controller: controller,
       style: TextStyle(
