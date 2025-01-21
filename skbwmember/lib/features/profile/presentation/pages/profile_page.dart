@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skbwmember/features/member/domain/entities/member.dart';
-import 'package:skbwmember/features/member/presentation/pages/edit_profile_page.dart';
+import 'package:skbwmember/features/profile/presentation/pages/edit_profile_page.dart';
 import 'package:skbwmember/utils/navigation.dart';
 
 class ProfilePage extends StatelessWidget {
