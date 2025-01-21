@@ -44,9 +44,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   void updateProfile() {
     if (globalKey.currentState!.validate()) {
-      final name = nameController.text;
-      final phone = phoneController.text;
-      final member = widget.member.copyWith(name: name, phone: phone);
     }
   }
 
