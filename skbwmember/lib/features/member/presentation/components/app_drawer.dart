@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skbwmember/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:skbwmember/features/auth/presentation/pages/settings_page.dart';
+import 'package:skbwmember/features/profile/presentation/pages/profile_bloc.dart';
 import 'package:skbwmember/theme/app_font.dart';
 import 'package:skbwmember/utils/app_snack_bar.dart';
 import 'package:skbwmember/utils/navigation.dart';
@@ -11,9 +12,6 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void logout() {
-      context.read<AuthCubit>().logout();
-    }
 
     final theme = Theme.of(context).colorScheme;
     final sWidth = MediaQuery.of(context).size.width;
@@ -52,6 +50,7 @@ class AppDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pop(context);
+                pushPage(context, ProfileBloc(), 1);
               },
             ),
 
@@ -67,17 +66,6 @@ class AppDrawer extends StatelessWidget {
                 Navigator.pop(context);
                 pushPage(context, SettingsPage(), 1);
               },
-            ),
-
-            /// Logout Tile
-            ListTile(
-              leading: Icon(Icons.logout, color: theme.onSurface),
-              title: Text(
-                'Logout',
-                style: TextStyle(
-                    fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
-              ),
-              onTap: logout,
             ),
 
             Spacer(),
