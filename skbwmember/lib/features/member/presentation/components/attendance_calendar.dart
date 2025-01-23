@@ -92,6 +92,7 @@ class AttendanceCalendar extends StatelessWidget {
         style: TextStyle(
           color: textColor,
           fontWeight: FontWeight.bold,
+          fontFamily: AppFont.logoFont,
         ),
       ),
     );
@@ -99,20 +100,18 @@ class AttendanceCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
+    
     return TableCalendar(
       calendarStyle: CalendarStyle(
-        outsideTextStyle: const TextStyle(fontFamily: "Brigade"),
-        defaultTextStyle: const TextStyle(fontFamily: "Brigade"),
-        todayDecoration: BoxDecoration(
-          color: Colors.blue.withAlpha(50),
-          shape: BoxShape.circle,
-        ),
+        outsideTextStyle: const TextStyle(fontFamily: AppFont.logoFont),
+        defaultTextStyle: const TextStyle(fontFamily: AppFont.logoFont),
       ),
       focusedDay: focusedDay,
       firstDay: startDate,
       lastDay: expiryDate.isAfter(DateTime.now()) ? expiryDate : DateTime.now(),
       headerStyle: const HeaderStyle(
-        titleTextStyle: TextStyle(fontFamily: "Brigade", fontSize: 20),
+        titleTextStyle: TextStyle(fontFamily: AppFont.logoFont, fontSize: 20),
         formatButtonVisible: false,
         titleCentered: true,
         leftChevronVisible: false,
@@ -120,29 +119,28 @@ class AttendanceCalendar extends StatelessWidget {
       ),
       calendarBuilders: CalendarBuilders(
         defaultBuilder: (context, day, focusedDay) {
-          return isPresent(day)
-              ? GestureDetector(
-                  onTap: () => showAttendanceTimePopup(context, day),
-                  child: buildDayMarker(day, Colors.green,
-                      textColor: Colors.white),
-                )
-              : expiryDate.isAfter(day)
-                  ? buildDayMarker(day, Colors.grey, textColor: Colors.white)
-                  : buildDayMarker(
-                      day,
-                      Colors.transparent,
-                      textColor: Theme.of(context).colorScheme.onSurface,
-                    );
+          if(day.weekday == 7) {
+            return buildDayMarker(day, Colors.red.shade500, textColor: Colors.white);
+          } else if(isPresent(day)){
+            return GestureDetector(
+              onTap: () => showAttendanceTimePopup(context, day),
+              child: buildDayMarker(day, Colors.green, textColor: Colors.white),
+            );
+          } else if(expiryDate.isAfter(day)){
+            return buildDayMarker(day, Colors.grey.shade800, textColor: Colors.white);
+          } else {
+            return buildDayMarker(day, Colors.transparent, textColor: theme.onSurface);
+          }
         },
         todayBuilder: (context, day, focusedDay) {
-          return isPresent(day)
-              ? GestureDetector(
-                  onTap: () => showAttendanceTimePopup(context, day),
-                  child: buildDayMarker(day, Colors.green,
-                      isToday: true, textColor: Colors.white),
-                )
-              : buildDayMarker(day, Colors.white,
-                  isToday: true, textColor: Colors.black);
+          if(isPresent(day)) {
+            return GestureDetector(
+              onTap: () => showAttendanceTimePopup(context, day),
+              child: buildDayMarker(day, Colors.green, isToday: true, textColor: Colors.white),
+            );
+          } else {
+            return buildDayMarker(day, Colors.white, isToday: true, textColor: Colors.black);
+          }
         },
       ),
     );
