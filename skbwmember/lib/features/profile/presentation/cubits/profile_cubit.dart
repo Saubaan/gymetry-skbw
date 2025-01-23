@@ -6,7 +6,7 @@ import 'package:skbwmember/features/profile/presentation/cubits/profile_states.d
 class ProfileCubit extends Cubit<ProfileState> {
   final ProfileRepo profileRepo;
 
-  ProfileCubit(this.profileRepo) : super(ProfileInitial());
+  ProfileCubit({required this.profileRepo}) : super(ProfileInitial());
 
   void getProfile() async {
     emit(ProfileLoading());
