@@ -86,6 +86,19 @@ class _ExercisePageState extends State<ExercisePage> {
                           color: theme.primary,
                           size: 50,
                         ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Video credits: ${widget.exercise.credit}',
+                        style: TextStyle(
+                          fontFamily: AppFont.secondaryFont,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
               SizedBox(height: 10),
