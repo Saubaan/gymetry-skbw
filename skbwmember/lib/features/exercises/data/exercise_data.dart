@@ -6,5 +6,6 @@ List<Exercise> exercises = [
     name: 'Lateral Raises',
     description: 'Lateral raises are a great exercise for building shoulder muscles.',
     videoPath: 'assets/exercises/1.mp4',
+    credit: 'Umar Jakatdar',
   ),
 ];
