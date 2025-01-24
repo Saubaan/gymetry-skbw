@@ -196,6 +196,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   onTap: () {
                     showEditDialog(context);
                   },
+                  color: theme.onSecondary,
+                  textColor: theme.secondary,
                 ),
                 SizedBox(height: 5),
                 PrimaryButton(
@@ -204,6 +206,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     Navigator.pop(context);
                     pushPage(context, SettingsPage(), 1);
                   },
+                  color: theme.onSecondary,
+                  textColor: theme.secondary,
                 ),
                 SizedBox(height: 5),
                 PrimaryButton(
