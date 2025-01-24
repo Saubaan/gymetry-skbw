@@ -11,17 +11,17 @@ import '../cubits/member_states.dart';
 import 'member_page.dart';
 
 class MemberBloc extends StatelessWidget {
-  final String id;
+  final String uid;
   final MemberRepo memberRepo = FirebaseMemberRepo();
 
-  MemberBloc({super.key, required this.id});
+  MemberBloc({super.key, required this.uid});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
 
     return BlocProvider(
-      create: (context) => MemberCubit(memberRepo: memberRepo)..getMember(id),
+      create: (context) => MemberCubit(memberRepo: memberRepo)..getMember(uid),
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -51,7 +51,7 @@ class MemberBloc extends StatelessWidget {
                     // retry button to reload the member details
                     ElevatedButton(
                       onPressed: () {
-                        context.read<MemberCubit>().getMember(id);
+                        context.read<MemberCubit>().getMember(uid);
                       },
                       child: const Text('Retry'),
                     ),
