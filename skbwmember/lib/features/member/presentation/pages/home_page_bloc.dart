@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:skbwmember/features/auth/domain/entities/app_user.dart';
+import 'package:skbwmember/features/exercises/data/exercise_data.dart';
+import 'package:skbwmember/features/exercises/presentation/exercise_list_page.dart';
+import 'package:skbwmember/features/exercises/presentation/exercise_page.dart';
 import 'package:skbwmember/features/member/data/firebase_member_repo.dart';
 import 'package:skbwmember/features/member/domain/repositories/member_repo.dart';
 import 'package:skbwmember/features/member/presentation/components/app_drawer.dart';
+import 'package:skbwmember/features/member/presentation/components/bottom_bar.dart';
 import 'package:skbwmember/features/member/presentation/cubits/member_cubit.dart';
 import 'package:skbwmember/features/member/presentation/cubits/member_states.dart';
 import 'package:skbwmember/features/member/presentation/pages/home_page.dart';
@@ -26,34 +31,49 @@ class _HomePageBlocState extends State<HomePageBloc> {
     return BlocProvider(
       create: (context) =>
           MemberCubit(memberRepo: memberRepo)..getMember(widget.user.uid),
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: theme.primary,
-          foregroundColor: theme.onPrimary,
-          title: Text(
-            'SK Body Care',
-            style: TextStyle(
-              fontSize: 20,
-              fontFamily: AppFont.primaryFont,
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: theme.primary,
+            foregroundColor: theme.onPrimary,
+            title: Text(
+              'SK Body Care',
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: AppFont.primaryFont,
+              ),
             ),
           ),
+          drawer: AppDrawer(),
+          body: TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              BlocConsumer<MemberCubit, MemberState>(
+                builder: (context, state) {
+                  if (state is MemberLoading) {
+                    return Center(
+                        child: LoadingAnimationWidget.staggeredDotsWave(
+                            color: theme.primary, size: 50));
+                  } else if (state is MemberLoaded) {
+                    return HomePage(member: state.member);
+                  } else {
+                    return const Center(child: Text('No Data Found'));
+                  }
+                },
+                listener: (context, state) {
+                  if (state is MemberError) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text(state.message)));
+                  }
+                },
+              ),
+              ExerciseListPage(),
+            ],
+          ),
+          bottomNavigationBar: BottomBar(),
         ),
-        drawer: AppDrawer(),
-        body: BlocConsumer<MemberCubit, MemberState>(builder: (context, state) {
-          if (state is MemberLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is MemberLoaded) {
-            return HomePage(member: state.member);
-          } else {
-            return const Center(child: Text('No Data Found'));
-          }
-        }, listener: (context, state) {
-          if (state is MemberError) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.message)));
-          }
-        }),
       ),
     );
   }
