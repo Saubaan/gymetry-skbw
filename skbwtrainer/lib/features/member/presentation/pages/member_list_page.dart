@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skbwtrainer/components/title_card.dart';
 import 'package:skbwtrainer/features/member/domain/entities/member.dart';
+import 'package:skbwtrainer/features/member/presentation/components/member_tile.dart';
 import 'package:skbwtrainer/features/member/presentation/cubits/member_cubit.dart';
 import 'package:skbwtrainer/features/member/presentation/pages/member_bloc.dart';
-import '../../../../themes/app_font.dart';
-import '../../../../utils/navigation.dart';
+import 'package:skbwtrainer/themes/app_font.dart';
+import 'package:skbwtrainer/utils/navigation.dart';
 
 class MemberListPage extends StatefulWidget {
   final List<Member> members;
@@ -19,20 +20,10 @@ class MemberListPage extends StatefulWidget {
 class _MemberListPageState extends State<MemberListPage> {
   String query = '';
 
-  // get the expiry text for the member in months or days or expired
-  String getExpiryText(DateTime expiryDate) {
-    if (isExpired(expiryDate)) {
-      return 'Subscription Expired!';
-    }
-    final days = expiryDate.difference(DateTime.now()).inDays;
-    if (days > 30) {
-      return 'Subscription expires in ${days ~/ 30} month ${days % 30} days';
-    }
-    return 'Subscription expires in $days days';
-  }
-
-  bool isExpired(DateTime expiryDate) {
-    return expiryDate.difference(DateTime.now()).inDays < 0;
+  void navigateToMemberDetails(String uid) async {
+    final memberCubit = context.read<MemberCubit>();
+    await pushPage(context, MemberBloc(uid: uid), 1);
+    memberCubit.getMembers();
   }
 
   @override
@@ -45,7 +36,6 @@ class _MemberListPageState extends State<MemberListPage> {
         .where(
             (member) => member.name.toLowerCase().contains(query.toLowerCase()))
         .toList();
-
     filteredMembers.sort((a, b) => a.expiryDate.compareTo(b.expiryDate));
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
@@ -53,6 +43,7 @@ class _MemberListPageState extends State<MemberListPage> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
+            /// Search Bar
             TitleCard(
               children: [
                 TextField(
@@ -86,6 +77,8 @@ class _MemberListPageState extends State<MemberListPage> {
               ],
             ),
             SizedBox(height: 10),
+
+            /// Member List
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
@@ -114,25 +107,9 @@ class _MemberListPageState extends State<MemberListPage> {
                               color: theme.surface,
                               borderRadius: BorderRadius.circular(sWidth / 30),
                             ),
-                            child: ListTile(
-                              title: Text(member.name,
-                                  style: TextStyle(
-                                      fontFamily: AppFont.primaryFont)),
-                              subtitle: Text(
-                                getExpiryText(member.expiryDate),
-                                style: TextStyle(
-                                  color: isExpired(member.expiryDate)
-                                      ? theme.error
-                                      : theme.onSecondary.withAlpha(150),
-                                  fontFamily: AppFont.logoFont,
-                                ),
-                              ),
-                              onTap: () async {
-                                final memberCubit = context.read<MemberCubit>();
-                                await pushPage(
-                                    context, MemberBloc(id: member.uid), 1);
-                                memberCubit.getMembers();
-                              },
+                            child: MemberTile(
+                              member: member,
+                              onTap: () => navigateToMemberDetails(member.uid),
                             ),
                           ),
                         );
