@@ -32,6 +32,7 @@ class BottomBar extends StatelessWidget {
           tabs: [
             Tab(icon: Icon(Icons.home)),
             Tab(icon: Icon(Icons.fitness_center)),
+            Tab(icon: Icon(Icons.restaurant)),
           ],
         ),
       ),
