@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../themes/app_font.dart';
+import 'package:skbwtrainer/themes/app_font.dart';
 
 class TitleCard extends StatelessWidget {
   final String? title;
