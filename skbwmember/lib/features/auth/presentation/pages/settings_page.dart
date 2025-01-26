@@ -61,11 +61,12 @@ class _SettingsPageState extends State<SettingsPage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: theme.secondary,
+        foregroundColor: theme.onSecondary,
         centerTitle: true,
         title: Text(
           'Settings',
           style: TextStyle(
-            color: theme.onSurface,
             fontFamily: AppFont.primaryFont,
             fontSize: 18,
           ),
