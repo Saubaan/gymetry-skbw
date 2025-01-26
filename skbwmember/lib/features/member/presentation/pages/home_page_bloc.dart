@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:skbwmember/features/auth/domain/entities/app_user.dart';
-import 'package:skbwmember/features/exercises/data/exercise_data.dart';
+import 'package:skbwmember/features/diet/data/diet_data.dart';
+import 'package:skbwmember/features/diet/presentation/pages/diet_list_page.dart';
+import 'package:skbwmember/features/diet/presentation/pages/diet_page.dart';
 import 'package:skbwmember/features/exercises/presentation/exercise_list_page.dart';
-import 'package:skbwmember/features/exercises/presentation/exercise_page.dart';
 import 'package:skbwmember/features/member/data/firebase_member_repo.dart';
 import 'package:skbwmember/features/member/domain/repositories/member_repo.dart';
 import 'package:skbwmember/features/member/presentation/components/app_drawer.dart';
@@ -32,7 +33,7 @@ class _HomePageBlocState extends State<HomePageBloc> {
       create: (context) =>
           MemberCubit(memberRepo: memberRepo)..getMember(widget.user.uid),
       child: DefaultTabController(
-        length: 2,
+        length: 3,
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -70,6 +71,7 @@ class _HomePageBlocState extends State<HomePageBloc> {
                 },
               ),
               ExerciseListPage(),
+              DietListPage(),
             ],
           ),
           bottomNavigationBar: BottomBar(),
