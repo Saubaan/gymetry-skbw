@@ -1,12 +1,12 @@
 class Gym {
-  final String id;
+  final String uid;
   final String name;
   final String address;
   final String phone;
   final String gymCode;
 
   Gym({
-    required this.id,
+    required this.uid,
     required this.name,
     required this.address,
     required this.phone,
@@ -15,7 +15,7 @@ class Gym {
 
   Map<String, String> toJson() {
     return {
-      'id': id,
+      'uid': uid,
       'name': name,
       'address': address,
       'phone': phone,
@@ -25,7 +25,7 @@ class Gym {
 
   factory Gym.fromJson(Map<String, dynamic> json) {
     return Gym(
-      id: json['id'],
+      uid: json['uid'],
       name: json['name'],
       address: json['address'],
       phone: json['phone'],
