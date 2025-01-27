@@ -33,6 +33,7 @@ flutter:
     - assets/exercises/
     - assets/diet/
     - assets/diet/logo/
+    - assets/exercises/icons/
   fonts:
     - family: Retroica
       fonts:
