@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   widget.member.name,
                   style:
-                      TextStyle(fontSize: 20, fontFamily: AppFont.primaryFont),
+                      TextStyle(fontSize: 18, fontFamily: AppFont.primaryFont),
                 ),
                 Text(
                   getMemberShipText(),
