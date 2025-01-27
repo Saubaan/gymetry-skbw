@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:video_player/video_player.dart';
 import 'package:skbwmember/components/title_card.dart';
 import 'package:skbwmember/features/exercises/domain/entities/exercise.dart';
 import 'package:skbwmember/theme/app_font.dart';
-import 'package:video_player/video_player.dart';
 
 class ExercisePage extends StatefulWidget {
   final Exercise exercise;
