@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skbwmember/components/title_card.dart';
 import 'package:skbwmember/features/exercises/data/exercise_data.dart';
-import 'package:skbwmember/features/exercises/presentation/exercise_page.dart';
+import 'package:skbwmember/features/exercises/presentation/pages/exercise_page.dart';
 import 'package:skbwmember/theme/app_font.dart';
 
 class ExerciseListPage extends StatelessWidget {
