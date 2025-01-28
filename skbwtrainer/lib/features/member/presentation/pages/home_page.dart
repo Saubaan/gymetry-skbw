@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         title: Text(
           'SK Body Care',
-          style: TextStyle(fontFamily: AppFont.primaryFont),
+          style: TextStyle(fontFamily: AppFont.primaryFont, fontSize: 20),
         ),
       ),
 
@@ -47,30 +47,16 @@ class _HomePageState extends State<HomePage> {
             children: [
               // Greeting
               TitleCard(
+                title: 'Hello, there!',
+                childrenAlign: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Hello there,',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: AppFont.primaryFont,
-                          color: theme.onSecondary,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        widget.user.name,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: AppFont.primaryFont,
-                          color: theme.onSecondary,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    widget.user.name,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: AppFont.primaryFont,
+                      color: theme.onSecondary,
+                    ),
                   ),
                 ],
               ),
@@ -108,9 +94,9 @@ class _HomePageState extends State<HomePage> {
               TitleCard(
                 title: 'Today Overview',
                 children: [
+                  Divider(),
                   Row(
                     children: [
-                      Divider(),
                       DayAnalyticBloc(),
                     ],
                   ),
