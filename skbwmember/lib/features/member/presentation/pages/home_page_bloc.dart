@@ -73,6 +73,7 @@ class _HomePageBlocState extends State<HomePageBloc> {
             ],
           ),
           bottomNavigationBar: BottomBar(),
+          extendBody: true,
         ),
       ),
     );
