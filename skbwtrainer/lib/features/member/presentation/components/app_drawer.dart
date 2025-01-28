@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skbwtrainer/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:skbwtrainer/features/auth/presentation/pages/settings_page.dart';
-import 'package:skbwtrainer/features/profile/domain/entities/gym.dart';
-import 'package:skbwtrainer/features/profile/presentation/pages/profile_page.dart';
+import 'package:skbwtrainer/features/profile/presentation/pages/profile_bloc.dart';
+import 'package:skbwtrainer/themes/app_font.dart';
 import 'package:skbwtrainer/utils/app_snack_bar.dart';
 import 'package:skbwtrainer/utils/navigation.dart';
-
-import '../../../../themes/app_font.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -20,13 +18,6 @@ class AppDrawer extends StatelessWidget {
 
     final theme = Theme.of(context).colorScheme;
     final sWidth = MediaQuery.of(context).size.width;
-    final gym = Gym(
-      id: 'SKBW',
-      name: 'S K Body Care',
-      address: '',
-      phone: '',
-      gymCode: 'gymetry-skbw',
-    );
 
     return Drawer(
       shape: const Border(),
@@ -62,12 +53,7 @@ class AppDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pop(context);
-                pushPage(
-                    context,
-                    ProfilePage(
-                      gym: gym,
-                    ),
-                    1);
+                pushPage(context, ProfileBloc(), 1);
               },
             ),
 
