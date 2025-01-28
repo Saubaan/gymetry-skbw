@@ -40,7 +40,7 @@ class DayAnalyticBloc extends StatelessWidget {
                   'Total visits today: ${state.attendance.length}',
                   style: TextStyle(
                     fontFamily: AppFont.primaryFont,
-                    color: theme.onSecondary.withAlpha(150),
+                    color: theme.primary.withAlpha(250),
                   ),
                 ),
                 SizedBox(height: 5),
