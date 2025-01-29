@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:skbwmember/features/member/domain/entities/attendance.dart';
 import 'package:skbwmember/features/member/domain/entities/member.dart';
 import 'package:skbwmember/features/member/domain/repositories/member_repo.dart';
@@ -8,6 +9,7 @@ class FirebaseMemberRepo implements MemberRepo {
   final membersCollection = FirebaseFirestore.instance.collection('members');
   final attendanceCollection =
       FirebaseFirestore.instance.collection('attendance');
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   @override
   Future<List<Attendance>> getMemberAttendanceById(String memberId) async {
@@ -34,8 +36,20 @@ class FirebaseMemberRepo implements MemberRepo {
       if (memberDoc.exists) {
         return Member.fromJson(memberDoc.data() as Map<String, dynamic>);
       } else {
-        throw Exception('Member not found');
+        DocumentSnapshot trainerDoc = await FirebaseFirestore.instance
+            .collection('trainers')
+            .doc(memberId)
+            .get();
+        if (trainerDoc.exists) {
+          await firebaseAuth.signOut();
+          throw Exception('Member not found or Deleted');
+        } else {
+          await firebaseAuth.currentUser?.delete();
+          throw Exception('Member not found or Deleted');
+        }
       }
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.code);
     } on FirebaseException catch (e) {
       throw Exception(e.code);
     } catch (e) {
