@@ -8,8 +8,7 @@ class FirebaseAuthRepo implements AuthRepo {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   @override
-  Future<AppUser?> loginWithEmailAndPassword(
-      String email, String password) async {
+  Future<AppUser?> loginWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential userCredential =
           await firebaseAuth.signInWithEmailAndPassword(
@@ -93,6 +92,19 @@ class FirebaseAuthRepo implements AuthRepo {
   @override
   Future<void> registerNewMember(PendingMember member) async {
     try {
+      QuerySnapshot pendingMembersDocs = await FirebaseFirestore.instance
+          .collection('pendingMembers')
+          .get();
+      int count = pendingMembersDocs.docs.length;
+      DocumentSnapshot gymDoc = await FirebaseFirestore.instance
+          .collection('gym')
+          .doc('SKBW')
+          .get();
+      if (gymDoc.exists) {
+        if (count >= gymDoc['maxRequestCount']) {
+          throw Exception('Max requests limit reached');
+        }
+      }
       await FirebaseFirestore.instance
           .collection('pendingMembers')
           .doc(member.email)
