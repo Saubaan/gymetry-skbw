@@ -34,6 +34,14 @@ flutter:
     - assets/diet/
     - assets/diet/logo/
     - assets/exercises/icons/
+    - assets/exercises/back/
+    - assets/exercises/chest/
+    - assets/exercises/shoulder/
+    - assets/exercises/leg/
+    - assets/exercises/bicep/
+    - assets/exercises/tricep/
+    - assets/exercises/forearm/
+    - assets/exercises/cardio/
   fonts:
     - family: Retroica
       fonts:
