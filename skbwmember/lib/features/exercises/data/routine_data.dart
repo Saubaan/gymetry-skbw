@@ -19,4 +19,11 @@ List<Workout> regularRoutine = [
     imagePath: 'assets/exercises/icons/chest.png',
     exercises: chestExercises,
   ),
+  Workout(
+    id: 'bicep',
+    name: 'Bicep Workouts',
+    description: '',
+    imagePath: 'assets/exercises/icons/bicep.png',
+    exercises: bicepExercises,
+  ),
 ];
