@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skbwmember/components/title_card.dart';
-import 'package:skbwmember/features/exercises/data/exercise_data.dart';
+import 'package:skbwmember/features/exercises/data/back_exercise_data.dart';
 import 'package:skbwmember/features/exercises/presentation/pages/exercise_page.dart';
 import 'package:skbwmember/theme/app_font.dart';
 
@@ -44,9 +44,9 @@ class ExerciseListPage extends StatelessWidget {
               ),
               height: sHeight,
               child: ListView.builder(
-                itemCount: exercises.length,
+                itemCount: backExercises.length,
                 itemBuilder: (context, index) {
-                  final exercise = exercises[index];
+                  final exercise = backExercises[index];
                   return Container(
                     decoration: BoxDecoration(
                       color: theme.surface,
