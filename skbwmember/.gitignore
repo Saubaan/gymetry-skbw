@@ -43,3 +43,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/assets/exercises/back/
+/assets/exercises/bicep/
+/assets/exercises/cardio/
+/assets/exercises/chest/
+/assets/exercises/forearm/
+/assets/exercises/leg/
+/assets/exercises/shoulder/
+/assets/exercises/tricep/
