@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skbwmember/features/auth/presentation/pages/settings_page.dart';
 import 'package:skbwmember/features/profile/presentation/pages/profile_bloc.dart';
 import 'package:skbwmember/theme/app_font.dart';
-import 'package:skbwmember/utils/app_snack_bar.dart';
+import 'package:skbwmember/utils/about_page.dart';
 import 'package:skbwmember/utils/navigation.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -72,20 +72,6 @@ class AppDrawer extends StatelessWidget {
               color: theme.onSurface.withAlpha(100),
             ),
 
-            ///Help Tile
-            ListTile(
-              leading: Icon(Icons.help, color: theme.onSurface),
-              title: Text(
-                'Help',
-                style: TextStyle(
-                    fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
-              ),
-              onTap: () {
-                AppSnackBar.showInfo('Coming Soon', context);
-                Navigator.pop(context);
-              },
-            ),
-
             /// Developer Name Text
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -112,8 +98,8 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      AppSnackBar.showInfo('Coming Soon', context);
                       Navigator.pop(context);
+                      pushPage(context, AboutPage(), 1);
                     },
                   )
                 ],
