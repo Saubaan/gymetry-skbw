@@ -94,8 +94,8 @@ List<Exercise> backExercises = [
   // incline t-bar row
   Exercise(
     id: '10',
-    name: 'Incline T-Bar Row',
-    description: 'Incline T-Bar Row is a great exercise for building strength and '
+    name: 'Incline Bench Row',
+    description: 'Incline Bench Row is a great exercise for building strength and '
         'muscle mass in the upper back, shoulders, and arms. It is also a great '
         'exercise for improving posture and shoulder health.',
     videoPath: 'assets/exercises/back/10.mp4',
