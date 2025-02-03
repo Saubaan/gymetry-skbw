@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skbwtrainer/components/auth_text_field.dart';
 import 'package:skbwtrainer/components/primary_button.dart';
 import 'package:skbwtrainer/features/auth/presentation/cubits/auth_cubit.dart';
+import 'package:skbwtrainer/utils/about_page.dart';
+import 'package:skbwtrainer/utils/navigation.dart';
 
 import '../../../../themes/app_font.dart';
 
@@ -186,7 +188,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     // about text button
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        pushPage(context, AboutPage(), 1);
+                      },
                       child: Text(
                         'About Us',
                         style: TextStyle(
