@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final sHeight = MediaQuery.of(context).size.height;
     final theme = Theme.of(context).colorScheme;
     return SingleChildScrollView(
       child: Padding(
@@ -75,6 +76,8 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 10),
 
             ScannerTile(memberUID: widget.member.uid),
+
+            SizedBox(height: sHeight /3)
           ],
         ),
       ),
