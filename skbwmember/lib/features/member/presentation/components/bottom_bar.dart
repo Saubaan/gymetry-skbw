@@ -1,3 +1,4 @@
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatelessWidget {
@@ -7,33 +8,32 @@ class BottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10),
       child: Container(
-        padding: const EdgeInsets.all(8),
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha(100),
-              blurRadius: 10,
-              spreadRadius: 1,
-              offset: const Offset(0, 0),
-            ),
-          ],
-          color: theme.secondary,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.transparent,
         ),
-        child: TabBar(
-          indicatorColor: theme.primary,
-          labelColor: theme.primary,
-          dividerHeight: 0,
-          unselectedLabelColor: theme.onSecondary,
-          indicatorSize: TabBarIndicatorSize.label,
-          indicatorAnimation: TabIndicatorAnimation.elastic,
-          tabs: [
-            Tab(icon: Icon(Icons.home)),
-            Tab(icon: Icon(Icons.fitness_center)),
-            Tab(icon: Icon(Icons.restaurant)),
-          ],
+        child: BlurryContainer(
+          padding: const EdgeInsets.all(10),
+          borderRadius: BorderRadius.circular(15),
+          blur: 15,
+          color: theme.secondary.withAlpha(150),
+          elevation: 5,
+          child: TabBar(
+            indicatorColor: theme.primary,
+            labelColor: theme.primary,
+            dividerHeight: 0,
+            unselectedLabelColor: theme.onSecondary,
+            indicatorSize: TabBarIndicatorSize.label,
+            indicatorAnimation: TabIndicatorAnimation.elastic,
+            tabs: [
+              Tab(icon: Icon(Icons.home)),
+              Tab(icon: Icon(Icons.fitness_center)),
+              Tab(icon: Icon(Icons.restaurant)),
+            ],
+          ),
         ),
       ),
     );
