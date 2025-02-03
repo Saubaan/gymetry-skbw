@@ -4,6 +4,8 @@ import 'package:skbwmember/features/auth/presentation/components/auth_text_field
 import 'package:skbwmember/components/primary_button.dart';
 import 'package:skbwmember/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:skbwmember/theme/app_font.dart';
+import 'package:skbwmember/utils/about_page.dart';
+import 'package:skbwmember/utils/navigation.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -194,7 +196,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     // about text button
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        pushPage(context, AboutPage(), 1);
+                      },
                       child: Text(
                         'About Us',
                         style: TextStyle(
