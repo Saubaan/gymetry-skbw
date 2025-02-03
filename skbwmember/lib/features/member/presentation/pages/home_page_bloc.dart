@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:skbwmember/features/auth/domain/entities/app_user.dart';
 import 'package:skbwmember/features/diet/presentation/pages/diet_list_page.dart';
-import 'package:skbwmember/features/exercises/presentation/pages/exercise_list_page.dart';
+import 'package:skbwmember/features/exercises/data/routine_data.dart';
+import 'package:skbwmember/features/exercises/presentation/pages/routine_page.dart';
 import 'package:skbwmember/features/member/data/firebase_member_repo.dart';
 import 'package:skbwmember/features/member/domain/repositories/member_repo.dart';
 import 'package:skbwmember/features/member/presentation/components/app_drawer.dart';
@@ -68,7 +69,7 @@ class _HomePageBlocState extends State<HomePageBloc> {
                   }
                 },
               ),
-              ExerciseListPage(),
+              RoutinePage(workouts: workoutRoutines),
               DietListPage(),
             ],
           ),
