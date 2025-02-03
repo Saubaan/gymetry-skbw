@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skbwtrainer/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:skbwtrainer/features/auth/presentation/pages/settings_page.dart';
 import 'package:skbwtrainer/features/profile/presentation/pages/profile_bloc.dart';
 import 'package:skbwtrainer/themes/app_font.dart';
-import 'package:skbwtrainer/utils/app_snack_bar.dart';
+import 'package:skbwtrainer/utils/about_page.dart';
 import 'package:skbwtrainer/utils/navigation.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -12,9 +10,6 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void logout() {
-      context.read<AuthCubit>().logout();
-    }
 
     final theme = Theme.of(context).colorScheme;
     final sWidth = MediaQuery.of(context).size.width;
@@ -71,35 +66,10 @@ class AppDrawer extends StatelessWidget {
               },
             ),
 
-            /// Logout Tile
-            ListTile(
-              leading: Icon(Icons.logout, color: theme.onSurface),
-              title: Text(
-                'Logout',
-                style: TextStyle(
-                    fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
-              ),
-              onTap: logout,
-            ),
-
             Spacer(),
 
             Divider(
               color: theme.onSurface.withAlpha(100),
-            ),
-
-            ///Help Tile
-            ListTile(
-              leading: Icon(Icons.help, color: theme.onSurface),
-              title: Text(
-                'Help',
-                style: TextStyle(
-                    fontFamily: AppFont.primaryFont, fontSize: sWidth / 28),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                AppSnackBar.showInfo('Coming Soon', context);
-              },
             ),
 
             /// Developer Name Text
@@ -129,7 +99,7 @@ class AppDrawer extends StatelessWidget {
                     ),
                     onTap: () {
                       Navigator.pop(context);
-                      AppSnackBar.showInfo('Coming Soon', context);
+                      pushPage(context, AboutPage(), 1);
                     },
                   )
                 ],
