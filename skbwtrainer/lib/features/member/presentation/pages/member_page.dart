@@ -31,7 +31,7 @@ class _MemberPageState extends State<MemberPage> {
   Future<void> launchDialer(String phoneNumber) async {
     final Uri telUri = Uri(scheme: 'tel', path: phoneNumber);
     if (await canLaunchUrl(telUri)) {
-      await launchUrl(telUri);
+      await launchUrl(telUri, mode: LaunchMode.externalApplication  );
     } else {
       throw 'Could not launch $phoneNumber';
     }
