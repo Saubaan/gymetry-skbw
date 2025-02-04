@@ -21,6 +21,10 @@ class _SettingsPageState extends State<SettingsPage> {
   final newPasswordController = TextEditingController();
   final confirmNewPasswordController = TextEditingController();
 
+  void logout() {
+    context.read<AuthCubit>().logout();
+  }
+
   void changePassword() {
     final password = passwordController.text;
     final newPassword = newPasswordController.text;
@@ -60,6 +64,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: theme.secondary,
+        foregroundColor: theme.onSecondary,
         centerTitle: true,
         title: Text(
           'Settings',
@@ -97,11 +103,13 @@ class _SettingsPageState extends State<SettingsPage> {
                         themeCubit.toggleTheme();
                       },
                     ),
+                    onTap: () {
+                      themeCubit.toggleTheme();
+                    },
                   ),
                 ],
               ),
               SizedBox(height: 10),
-
               TitleCard(
                 title: 'Change Password',
                 children: [
@@ -133,6 +141,20 @@ class _SettingsPageState extends State<SettingsPage> {
                     onTap: changePassword,
                     color: theme.onSecondary,
                     textColor: theme.secondary,
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              TitleCard(
+                children: [
+                  PrimaryButton(
+                    text: 'Logout',
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      logout();
+                    },
+                    color: theme.error,
+                    textColor: theme.onError,
                   ),
                 ],
               ),
