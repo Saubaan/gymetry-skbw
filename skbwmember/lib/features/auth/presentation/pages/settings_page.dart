@@ -99,6 +99,9 @@ class _SettingsPageState extends State<SettingsPage> {
                         themeCubit.toggleTheme();
                       },
                     ),
+                    onTap: () {
+                      themeCubit.toggleTheme();
+                    },
                   ),
                 ],
               ),
