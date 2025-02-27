@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skbwtrainer/components/title_card.dart';
 import 'package:skbwtrainer/features/member/domain/entities/member.dart';
 import 'package:skbwtrainer/features/member/presentation/components/member_tile.dart';
 import 'package:skbwtrainer/features/member/presentation/cubits/member_cubit.dart';
@@ -37,88 +36,84 @@ class _MemberListPageState extends State<MemberListPage> {
             (member) => member.name.toLowerCase().contains(query.toLowerCase()))
         .toList();
     filteredMembers.sort((a, b) => a.expiryDate.compareTo(b.expiryDate));
-    return SingleChildScrollView(
-      physics: NeverScrollableScrollPhysics(),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            /// Search Bar
-            TitleCard(
-              children: [
-                TextField(
-                  style: TextStyle(fontFamily: AppFont.primaryFont),
-                  onChanged: (value) {
-                    setState(
-                      () {
-                        query = value;
-                      },
-                    );
-                  },
-                  decoration: InputDecoration(
-                    hintStyle: TextStyle(
-                        fontFamily: AppFont.primaryFont,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSecondary
-                            .withAlpha(150),
-                        fontSize: 12),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    hintText: 'Enter member name',
-                    prefixIcon: Icon(Icons.search,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSecondary
-                            .withAlpha(150)),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
 
-            /// Member List
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: theme.secondary,
-                borderRadius: BorderRadius.circular(sWidth / 30),
-              ),
-              height: sHeight,
-              child: widget.members.isEmpty
-                  ? Center(
-                      child: Text(
-                        'No members found',
-                        style: TextStyle(
-                          fontFamily: AppFont.primaryFont,
-                          color: theme.onSecondary,
-                        ),
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: filteredMembers.length,
-                      itemBuilder: (context, index) {
-                        final member = filteredMembers[index];
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: theme.surface,
-                              borderRadius: BorderRadius.circular(sWidth / 30),
-                            ),
-                            child: MemberTile(
-                              member: member,
-                              onTap: () => navigateToMemberDetails(member.uid),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+    return Scaffold(
+      backgroundColor: theme.secondary,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: theme.secondary,
+        title: TextField(
+          style: TextStyle(fontFamily: AppFont.primaryFont),
+          onChanged: (value) {
+            setState(
+                  () {
+                query = value;
+              },
+            );
+          },
+          decoration: InputDecoration(
+            hintStyle: TextStyle(
+                fontFamily: AppFont.primaryFont,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSecondary
+                    .withAlpha(150),
+                fontSize: 12),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
             ),
-          ],
+            hintText: 'Enter member name',
+            prefixIcon: Icon(Icons.search,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSecondary
+                    .withAlpha(150)),
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: Size(sWidth, sHeight / 16),
+          child: Container(
+            padding: EdgeInsets.all(8),
+            child: Text(
+              'Total members: ${filteredMembers.length}',
+              style: TextStyle(
+                fontFamily: AppFont.primaryFont,
+                color: theme.onSecondary,
+                fontSize: 16,
+              ),
+            ),
+          ),
         ),
       ),
+      body: widget.members.isEmpty
+          ? Center(
+              child: Text(
+                'No members found',
+                style: TextStyle(
+                  fontFamily: AppFont.primaryFont,
+                  color: theme.onSecondary,
+                ),
+              ),
+            )
+          : ListView.builder(
+              itemCount: filteredMembers.length,
+              itemBuilder: (context, index) {
+                final member = filteredMembers[index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 7),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: theme.surface,
+                      borderRadius: BorderRadius.circular(sWidth / 30),
+                    ),
+                    child: MemberTile(
+                      member: member,
+                      onTap: () => navigateToMemberDetails(member.uid),
+                    ),
+                  ),
+                );
+              },
+            ),
     );
   }
 }
