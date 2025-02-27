@@ -95,11 +95,7 @@ class _HomePageState extends State<HomePage> {
                 title: 'Today Overview',
                 children: [
                   Divider(),
-                  Row(
-                    children: [
-                      DayAnalyticBloc(),
-                    ],
-                  ),
+                  DayAnalyticBloc(),
                 ],
               ),
               SizedBox(height: 10),
