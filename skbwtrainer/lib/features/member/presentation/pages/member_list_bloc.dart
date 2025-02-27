@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:skbwtrainer/features/member/data/firebase_member_repo.dart';
+import 'package:skbwtrainer/features/member/domain/entities/attendance.dart';
+import 'package:skbwtrainer/features/member/domain/entities/member.dart';
 import 'package:skbwtrainer/features/member/domain/repository/member_repo.dart';
 import 'package:skbwtrainer/features/member/presentation/cubits/member_cubit.dart';
 import 'package:skbwtrainer/features/member/presentation/cubits/member_states.dart';
@@ -13,7 +15,8 @@ import 'member_list_page.dart';
 
 class MemberListBloc extends StatelessWidget {
   final MemberRepo memberRepo = FirebaseMemberRepo();
-  MemberListBloc({super.key});
+  final List<Attendance>? attendance;
+  MemberListBloc({super.key, this.attendance});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +25,10 @@ class MemberListBloc extends StatelessWidget {
       create: (context) => MemberCubit(memberRepo: memberRepo)..getMembers(),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: theme.secondary,
           centerTitle: true,
           title: Text(
-            'All members',
+            attendance == null? 'All members' : 'Today\'s attendance',
             style: TextStyle(
               fontFamily: AppFont.primaryFont,
               fontSize: 18,
@@ -41,11 +45,19 @@ class MemberListBloc extends StatelessWidget {
           builder: (context, state) {
             if (state is MemberLoading) {
               return Center(
-                child: LoadingAnimationWidget.staggeredDotsWave(color: theme.primary, size: 50),
+                child: LoadingAnimationWidget.staggeredDotsWave(
+                    color: theme.primary, size: 50),
               );
             } else if (state is MembersLoaded) {
+              List<Member> members = state.members;
+              if (attendance != null) {
+                // only keep members who have attended today
+                members = members.where((member) {
+                  return attendance!.any((element) => element.memberId == member.uid);
+                }).toList();
+              }
               return MemberListPage(
-                members: state.members,
+                members: members,
               );
             } else {
               return const Center(
